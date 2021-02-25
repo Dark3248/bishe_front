@@ -1,0 +1,676 @@
+<template>
+  <div style="margin-left: 30vh; margin-right: 30vh">
+    <div v-if="submit == true && examine == false">
+      <Alert type="warning">请等待审批</Alert>
+    </div>
+    <div v-else-if="submit == true && examine == true">显示结果</div>
+    <div>
+      <Form ref="formValidate" :model="formValidate" :rules="ruleValidate">
+        <FormItem label="姓名" prop="name">
+          <Input disabled v-model="formValidate.name"></Input>
+        </FormItem>
+        <FormItem label="学号" prop="uid">
+          <Input disabled v-model="formValidate.uid"></Input>
+        </FormItem>
+        <FormItem label="手机" prop="phoneNumber">
+          <Input
+            v-if="submit == false"
+            v-model="formValidate.phoneNumber"
+          ></Input>
+          <Input v-else disabled v-model="formValidate.phoneNumber"></Input>
+        </FormItem>
+        <FormItem label="E-mail" prop="email">
+          <Input v-if="submit == false" v-model="formValidate.email"></Input>
+          <Input v-else disabled v-model="formValidate.email"></Input>
+        </FormItem>
+        <FormItem label="身份证号" prop="idCard">
+          <Input v-if="submit == false" v-model="formValidate.idCard"></Input>
+          <Input v-else disabled v-model="formValidate.idCard"></Input>
+        </FormItem>
+        <FormItem label="实习公司名称" prop="companyName">
+          <Input
+            v-if="submit == false"
+            v-model="formValidate.companyName"
+          ></Input>
+          <Input v-else disabled v-model="formValidate.companyName"></Input>
+        </FormItem>
+        <FormItem label="实习公司网址/单位地址" prop="companyWebsite">
+          <Input
+            v-if="submit == false"
+            v-model="formValidate.companyWebsite"
+          ></Input>
+          <Input v-else disabled v-model="formValidate.companyWebsite"></Input>
+        </FormItem>
+        <FormItem label="学院指导教师姓名" prop="schoolTeacher">
+          <Input
+            v-if="submit == false"
+            v-model="formValidate.schoolTeacher"
+          ></Input>
+          <Input v-else disabled v-model="formValidate.schoolTeacher"></Input>
+        </FormItem>
+        <FormItem label="学院指导教师电话" prop="schoolTeacherPhone">
+          <Input
+            v-if="submit == false"
+            v-model="formValidate.schoolTeacherPhone"
+          ></Input>
+          <Input
+            v-else
+            disabled
+            v-model="formValidate.schoolTeacherPhone"
+          ></Input>
+        </FormItem>
+        <FormItem label="企业联系人姓名" prop="companyContact">
+          <Input
+            v-if="submit == false"
+            v-model="formValidate.companyContact"
+          ></Input>
+          <Input v-else disabled v-model="formValidate.companyContact"></Input>
+        </FormItem>
+        <FormItem label="企业联系人电话" prop="companyContactPhone">
+          <Input
+            v-if="submit == false"
+            v-model="formValidate.companyContactPhone"
+          ></Input>
+          <Input
+            v-else
+            disabled
+            v-model="formValidate.companyContactPhone"
+          ></Input>
+        </FormItem>
+        <FormItem label="企业实习导师姓名" prop="companyTeacher">
+          <Input
+            v-if="submit == false"
+            v-model="formValidate.companyTeacher"
+          ></Input>
+          <Input v-else disabled v-model="formValidate.companyTeacher"></Input>
+        </FormItem>
+        <FormItem label="企业实习导师岗位职务" prop="companyTeacherPost">
+          <Input
+            v-if="submit == false"
+            v-model="formValidate.companyTeacherPost"
+          ></Input>
+          <Input
+            v-else
+            disabled
+            v-model="formValidate.companyTeacherPost"
+          ></Input>
+        </FormItem>
+        <FormItem label="企业实习导师电话" prop="companyTeacherPhone">
+          <Input
+            v-if="submit == false"
+            v-model="formValidate.companyTeacherPhone"
+          ></Input>
+          <Input
+            v-else
+            disabled
+            v-model="formValidate.companyTeacherPhone"
+          ></Input>
+        </FormItem>
+        <FormItem label="导师资格认证" prop="companyTeacherQualification">
+          <Select
+            v-model="formValidate.companyTeacherQualification"
+            v-if="submit == false"
+          >
+            <Option value="1">本科毕业十年以上</Option>
+            <Option value="2">硕士毕业五年以上</Option>
+            <Option value="3">博士学位</Option>
+            <Option value="4">高级职称</Option>
+          </Select>
+          <Select
+            v-model="formValidate.companyTeacherQualification"
+            v-else
+            disabled
+          >
+            <Option value="1">本科毕业十年以上</Option>
+            <Option value="2">硕士毕业五年以上</Option>
+            <Option value="3">博士学位</Option>
+            <Option value="4">高级职称</Option>
+          </Select>
+        </FormItem>
+        <FormItem label="企业实习导师介绍" prop="companyTeacherInfo">
+          <Input
+            v-if="submit == false"
+            v-model="formValidate.companyTeacherInfo"
+          ></Input>
+          <Input
+            v-else
+            disabled
+            v-model="formValidate.companyTeacherInfo"
+          ></Input>
+        </FormItem>
+        <FormItem label="个人从事项目情况" prop="projectInfo">
+          <Input
+            v-if="submit == false"
+            v-model="formValidate.projectInfo"
+          ></Input>
+          <Input v-else disabled v-model="formValidate.projectInfo"></Input>
+        </FormItem>
+        <FormItem label="实习协议类型" prop="internshipType">
+          <Select v-model="formValidate.internshipType" v-if="submit == false">
+            <Option value="1">签订三方协议</Option>
+            <Option value="2">签订两方协议</Option>
+          </Select>
+          <Select v-model="formValidate.internshipType" v-else disabled>
+            <Option value="1">签订三方协议</Option>
+            <Option value="2">签订两方协议</Option>
+          </Select>
+        </FormItem>
+        <FormItem label="购买保险类型" prop="insuranceType">
+          <Select v-model="formValidate.insuranceType" v-if="submit == false">
+            <Option value="1" v-if="formValidate.internshipType == '2'"
+              >自己购买</Option
+            >
+            <Option value="2" v-if="formValidate.internshipType == '2'"
+              >公司购买</Option
+            >
+            <Option value="3" v-if="formValidate.internshipType == '1'"
+              >学院购买</Option
+            >
+          </Select>
+          <Select v-model="formValidate.insuranceType" v-else disabled>
+            <Option value="1" v-if="formValidate.internshipType == '2'"
+              >自己购买</Option
+            >
+            <Option value="2" v-if="formValidate.internshipType == '2'"
+              >公司购买</Option
+            >
+            <Option value="3" v-if="formValidate.internshipType == '1'"
+              >学院购买</Option
+            >
+          </Select>
+        </FormItem>
+        <FormItem label="保险购买日期">
+          <Row>
+            <FormItem prop="insuranceStartDate">
+              <DatePicker
+                v-if="submit == false"
+                type="date"
+                placeholder="选择开始日期"
+                v-model="formValidate.insuranceStartDate"
+              ></DatePicker>
+              <DatePicker
+                v-else
+                disabled
+                type="date"
+                placeholder="选择开始日期"
+                v-model="formValidate.insuranceStartDate"
+              ></DatePicker>
+            </FormItem>
+            <div style="margin-left: 10px; margin-right: 10px">——</div>
+            <FormItem prop="insuranceStartDate">
+              <DatePicker
+                v-if="submit == false"
+                type="date"
+                placeholder="选择结束日期"
+                v-model="formValidate.insuranceEndDate"
+              ></DatePicker>
+              <DatePicker
+                v-else
+                disabled
+                type="date"
+                placeholder="选择结束日期"
+                v-model="formValidate.insuranceEndDate"
+              ></DatePicker>
+            </FormItem>
+          </Row>
+        </FormItem>
+      </Form>
+      <Row>
+        <Col span="4">
+          <Upload
+            v-if="submit == false"
+            :data="uploadData[0]"
+            :on-remove="handleRemove"
+            :action="url"
+            accept=".pdf"
+          >
+            <Button icon="ios-cloud-upload-outline">上传简历（.pdf）</Button>
+          </Upload>
+          <Upload
+            v-else
+            disabled
+            :data="uploadData[0]"
+            :on-remove="handleRemove"
+            :action="url"
+            accept=".pdf"
+          >
+            <Button icon="ios-cloud-upload-outline">上传简历（.pdf）</Button>
+          </Upload>
+        </Col>
+        <Col span="4">
+          <Upload
+            v-if="submit == false"
+            multiple
+            :data="uploadData[1]"
+            :on-remove="handleRemove"
+            :action="url"
+            accept=".jpg, .png, .jpeg"
+          >
+            <Button icon="ios-cloud-upload-outline"
+              >上传保险证明（图片）</Button
+            >
+          </Upload>
+          <Upload
+            v-else
+            disabled
+            multiple
+            :data="uploadData[1]"
+            :on-remove="handleRemove"
+            :action="url"
+            accept=".jpg, .png, .jpeg"
+          >
+            <Button icon="ios-cloud-upload-outline"
+              >上传保险证明（图片）</Button
+            >
+          </Upload>
+        </Col>
+        <Col span="4">
+          <Upload
+            v-if="submit == false"
+            multiple
+            :data="uploadData[2]"
+            :on-remove="handleRemove"
+            :action="url"
+            accept=".jpg, .png, .jpeg"
+          >
+            <Button icon="ios-cloud-upload-outline"
+              >上传学费证明（图片）</Button
+            >
+          </Upload>
+          <Upload
+            v-else
+            disabled
+            multiple
+            :data="uploadData[2]"
+            :on-remove="handleRemove"
+            :action="url"
+            accept=".jpg, .png, .jpeg"
+          >
+            <Button icon="ios-cloud-upload-outline"
+              >上传学费证明（图片）</Button
+            >
+          </Upload>
+        </Col>
+        <Col span="4">
+          <Upload
+            v-if="submit == false"
+            multiple
+            :data="uploadData[3]"
+            :on-remove="handleRemove"
+            :action="url"
+            accept=".jpg, .png, .jpeg"
+          >
+            <Button icon="ios-cloud-upload-outline">上传成绩单（图片）</Button>
+          </Upload>
+          <Upload
+            v-else
+            disabled
+            multiple
+            :data="uploadData[3]"
+            :on-remove="handleRemove"
+            :action="url"
+            accept=".jpg, .png, .jpeg"
+          >
+            <Button icon="ios-cloud-upload-outline">上传成绩单（图片）</Button>
+          </Upload>
+        </Col>
+        <Col span="4">
+          <Upload
+            v-if="submit == false"
+            multiple
+            :data="uploadData[4]"
+            :on-remove="handleRemove"
+            :action="url"
+            accept=".jpg, .png, .jpeg"
+          >
+            <Button icon="ios-cloud-upload-outline"
+              >上传实习协议（图片）</Button
+            >
+          </Upload>
+          <Upload
+            v-else
+            disabled
+            multiple
+            :data="uploadData[4]"
+            :on-remove="handleRemove"
+            :action="url"
+            accept=".jpg, .png, .jpeg"
+          >
+            <Button icon="ios-cloud-upload-outline"
+              >上传实习协议（图片）</Button
+            >
+          </Upload>
+        </Col>
+        <Col span="4" v-if="formValidate.internshipType == '2'">
+          <Upload
+            v-if="submit == false"
+            multiple
+            :data="uploadData[5]"
+            :on-remove="handleRemove"
+            :action="url"
+            accept=".jpg, .png, .jpeg"
+          >
+            <Button icon="ios-cloud-upload-outline"
+              >上传劳动合同/劳务合同/实习证明/实习协议（图片）</Button
+            >
+          </Upload>
+          <Upload
+            v-else
+            disabled
+            multiple
+            :data="uploadData[5]"
+            :on-remove="handleRemove"
+            :action="url"
+            accept=".jpg, .png, .jpeg"
+          >
+            <Button icon="ios-cloud-upload-outline"
+              >上传劳动合同/劳务合同/实习证明/实习协议（图片）</Button
+            >
+          </Upload>
+        </Col>
+      </Row>
+      <Button
+        v-if="submit == false"
+        type="primary"
+        @click="handleSubmit('formValidate')"
+        style="margin-top: 25px"
+      >
+        Submit
+      </Button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Internship",
+  data() {
+    return {
+      submit: false,
+      examine: false,
+      formValidate: {
+        name: sessionStorage.getItem("name"),
+        uid: sessionStorage.getItem("username"),
+        phoneNumber: "",
+        email: "",
+        idCard: "",
+        companyName: "",
+        companyWebsite: "",
+        schoolTeacher: "",
+        schoolTeacherPhone: "",
+        companyContact: "",
+        companyContactPhone: "",
+        companyTeacher: "",
+        companyTeacherPhone: "",
+        companyTeacherPost: "",
+        companyTeacherQualification: "",
+        companyTeacherInfo: "",
+        projectInfo: "",
+        internshipType: "",
+        insuranceType: "",
+        insuranceStartDate: "",
+        insuranceEndDate: "",
+        resumePath: "",
+        insurancePath: "",
+        tuitionPath: "",
+        gradePath: "",
+        contractPath: "",
+        liangfangPath: "",
+        examineStatus1: 3,
+        examineStatus2: 3,
+        examineStatus3: 3,
+        examineContent1: "",
+        examineContent2: "",
+        examineContent3: "",
+        path: "",
+      },
+      ruleValidate: {
+        phoneNumber: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+          {
+            len: 11,
+            message: "请输入正确的电话号码",
+          },
+        ],
+        email: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+          {
+            type: "email",
+            message: "不正确的邮箱格式",
+          },
+        ],
+        idCard: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+          {
+            len: 18,
+            message: "请输入正确的身份证号",
+          },
+        ],
+        companyName: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+        ],
+        companyWebsite: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+        ],
+        schoolTeacher: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+        ],
+        schoolTeacherPhone: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+        ],
+        companyContact: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+        ],
+        companyContactPhone: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+        ],
+        companyTeacher: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+        ],
+        companyTeacherPhone: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+        ],
+        companyTeacherPost: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+        ],
+        companyTeacherQualification: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+        ],
+        companyTeacherInfo: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+          {
+            type: "string",
+            max: 20,
+            message: "不超过20个字",
+          },
+        ],
+        projectInfo: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+          {
+            type: "string",
+            max: 20,
+            message: "不超过20个字",
+          },
+        ],
+        internshipType: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+        ],
+        insuranceType: [
+          {
+            required: true,
+            message: "不能为空",
+          },
+        ],
+        insuranceStartDate: [
+          {
+            required: true,
+            type: "date",
+            message: "请选择日期",
+          },
+        ],
+        insuranceEndDate: [
+          {
+            required: true,
+            type: "date",
+            message: "请选择日期",
+          },
+        ],
+      },
+      url: this.back_server + "/file/internship",
+      uploadData: [
+        {
+          username: sessionStorage.getItem("username"),
+          type: "resume",
+        },
+        {
+          username: sessionStorage.getItem("username"),
+          type: "insurance",
+        },
+        {
+          username: sessionStorage.getItem("username"),
+          type: "tuition",
+        },
+        {
+          username: sessionStorage.getItem("username"),
+          type: "grade",
+        },
+        {
+          username: sessionStorage.getItem("username"),
+          type: "contract",
+        },
+        {
+          username: sessionStorage.getItem("username"),
+          type: "liangfang",
+        },
+      ],
+    };
+  },
+  mounted() {
+    this.$axios
+      .get(this.back_server + "/form/getInternship", {
+        params: {
+          username: sessionStorage.getItem("username"),
+        },
+      })
+      .then((res) => {
+        if (res.data === "") {
+          this.$axios.get(this.back_server + "/file/removeAll", {
+            params: {
+              username: sessionStorage.getItem("username"),
+            },
+          });
+        } else {
+          this.submit = true;
+          this.formValidate = res.data;
+          this.formValidate.insuranceType += "";
+          this.formValidate.internshipType += "";
+          this.formValidate.companyTeacherQualification += "";
+          console.log(this.formValidate);
+          if (
+            res.data.examineStatus1 === 3 ||
+            res.data.examineStatus2 === 3 ||
+            res.data.examineStatus3 === 3
+          ) {
+            this.examine = false;
+          } else {
+            this.examine = true;
+          }
+        }
+      });
+  },
+  methods: {
+    handleSubmit(name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.$axios
+            .get(this.back_server + "/file/validate", {
+              params: {
+                username: sessionStorage.getItem("username"),
+                type: this.formValidate.internshipType,
+              },
+            })
+            .then((res) => {
+              if (res.data.code === 2) {
+                this.$Message.error("请上传所需文件");
+              } else {
+                this.formValidate.resumePath = res.data.resume;
+                this.formValidate.insurancePath = res.data.insurance;
+                this.formValidate.tuitionPath = res.data.tuition;
+                this.formValidate.gradePath = res.data.grade;
+                this.formValidate.contractPath = res.data.contract;
+                this.formValidate.liangfangPath = res.data.liangfang;
+                this.$axios.post(
+                  this.back_server + "/form/internship",
+                  this.formValidate
+                );
+                this.$Message.success("Success!");
+                this.submit = true
+              }
+            });
+        } else {
+          this.$Message.error("请填写所有信息");
+        }
+      });
+    },
+    handleRemove(file, filelist) {
+      this.$axios.post(
+        this.back_server + "/file/remove",
+        this.$qs.stringify({
+          path: file.response.path,
+        })
+      );
+    },
+  },
+};
+</script>
+
+<style>
+</style>

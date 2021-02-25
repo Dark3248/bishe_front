@@ -1,0 +1,58 @@
+<template>
+  <Layout>
+    <Content :style="{ padding: '24px', background: '#fff' }">
+      <div v-if="current == 1">
+        <Steps :current="status">
+          <Step title="实习阶段"></Step>
+          <Step title="开题答辩"></Step>
+          <Step title="中期答辩"></Step>
+          <Step title="毕业答辩"></Step>
+          <Step title="离校阶段"></Step>
+        </Steps>
+      </div>
+      <div v-if="current == 2">
+        <Monthly v-if="status > 1"></Monthly>
+        <div v-else>请先填写实习信息</div>
+      </div>
+      <div v-if="current == 3">
+        <Internship></Internship>
+      </div>
+      <div v-if="current == 4">
+        <Job></Job>
+      </div>
+      <div v-if="current == 5">
+        <Graduation></Graduation>
+      </div>
+    </Content>
+  </Layout>
+</template>
+
+<script>
+import Monthly from "@/components/Monthly.vue";
+import Internship from "@/components/Internship.vue";
+import Job from "@/components/Job.vue";
+import Graduation from '@/components/Graduation.vue'
+export default {
+  name: "Student",
+  components: {
+    Monthly,
+    Internship,
+    Job,
+    Graduation
+  },
+  data() {
+    return {
+      current: 1,
+      status: sessionStorage.getItem('status') - 1,
+    };
+  },
+  methods: {
+    change(name) {
+      this.current = name;
+    },
+  },
+};
+</script>
+
+<style>
+</style>
