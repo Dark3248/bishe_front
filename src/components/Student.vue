@@ -11,17 +11,19 @@
         </Steps>
       </div>
       <div v-if="current == 2">
-        <Monthly v-if="status > 1"></Monthly>
+        <Monthly v-if="status > 0"></Monthly>
         <div v-else>请先填写实习信息</div>
       </div>
       <div v-if="current == 3">
         <Internship></Internship>
       </div>
       <div v-if="current == 4">
-        <Job></Job>
+        <Job v-if="status == 4"></Job>
+        <div v-else>离校阶段才可以填写此表单</div>
       </div>
       <div v-if="current == 5">
-        <Graduation></Graduation>
+        <Graduation v-if="status == 4"></Graduation>
+        <div v-else>离校阶段才可以填写此表单</div>
       </div>
     </Content>
   </Layout>
@@ -43,8 +45,19 @@ export default {
   data() {
     return {
       current: 1,
-      status: sessionStorage.getItem('status') - 1,
+      status: 0,
     };
+  },
+  mounted() {
+    var i = sessionStorage.getItem("status")
+    if (i <= 2) {
+      this.status = i - 1
+    } else if (i == 3) {
+      this.status = 1
+    } else {
+      this.status = i - 2
+    }
+
   },
   methods: {
     change(name) {

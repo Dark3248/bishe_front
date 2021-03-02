@@ -3,7 +3,12 @@
     <div v-if="submit == true && examine == false">
       <Alert type="warning">请等待审批</Alert>
     </div>
-    <div v-else-if="submit == true && examine == true">显示结果</div>
+    <Alert v-else-if="submit == true && examine == true">
+      班主任：{{ formValidate.examineContent1 }} | 学籍管理员：{{
+        formValidate.examineContent2
+      }}
+      | 部门管理员：{{ formValidate.examineContent3 }}
+    </Alert>
     <div>
       <Form ref="formValidate" :model="formValidate" :rules="ruleValidate">
         <FormItem label="姓名" prop="name">
@@ -218,7 +223,7 @@
       <Row>
         <Col span="4">
           <Upload
-            v-if="submit == false"
+            v-if="submit == false || formValidate.examineStatus1 == 2"
             :data="uploadData[0]"
             :on-remove="handleRemove"
             :action="url"
@@ -239,7 +244,7 @@
         </Col>
         <Col span="4">
           <Upload
-            v-if="submit == false"
+            v-if="submit == false || formValidate.examineStatus3 == 2"
             multiple
             :data="uploadData[1]"
             :on-remove="handleRemove"
@@ -266,7 +271,7 @@
         </Col>
         <Col span="4">
           <Upload
-            v-if="submit == false"
+            v-if="submit == false || formValidate.examineStatus2 == 2"
             multiple
             :data="uploadData[2]"
             :on-remove="handleRemove"
@@ -293,7 +298,7 @@
         </Col>
         <Col span="4">
           <Upload
-            v-if="submit == false"
+            v-if="submit == false || formValidate.examineStatus3 == 2"
             multiple
             :data="uploadData[3]"
             :on-remove="handleRemove"
@@ -316,7 +321,7 @@
         </Col>
         <Col span="4">
           <Upload
-            v-if="submit == false"
+            v-if="submit == false || formValidate.examineStatus3 == 2"
             multiple
             :data="uploadData[4]"
             :on-remove="handleRemove"
@@ -343,7 +348,7 @@
         </Col>
         <Col span="4" v-if="formValidate.internshipType == '2'">
           <Upload
-            v-if="submit == false"
+            v-if="submit == false || formValidate.examineStatus3 == 2"
             multiple
             :data="uploadData[5]"
             :on-remove="handleRemove"
@@ -370,7 +375,7 @@
         </Col>
       </Row>
       <Button
-        v-if="submit == false"
+        v-if="submit == false || formValidate.examineStatus3 == 2 || formValidate.examineStatus2 == 2 || formValidate.examineStatus1 == 2"
         type="primary"
         @click="handleSubmit('formValidate')"
         style="margin-top: 25px"
@@ -615,13 +620,13 @@ export default {
           this.formValidate.companyTeacherQualification += "";
           console.log(this.formValidate);
           if (
-            res.data.examineStatus1 === 3 ||
-            res.data.examineStatus2 === 3 ||
-            res.data.examineStatus3 === 3
+            res.data.examineStatus1 !== 3 &&
+            res.data.examineStatus2 !== 3 &&
+            res.data.examineStatus3 !== 3
           ) {
-            this.examine = false;
-          } else {
             this.examine = true;
+          } else {
+            this.examine = false;
           }
         }
       });
@@ -652,7 +657,8 @@ export default {
                   this.formValidate
                 );
                 this.$Message.success("Success!");
-                this.submit = true
+                this.submit = true;
+                this.examine = false;
               }
             });
         } else {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Row justify="center">
+    <Row justify="center" style="margin-top: 10vh">
       <RadioGroup v-model="postData.type">
         <div v-if="utype == 2">
           <Radio label="通过开题答辩名单"></Radio>
@@ -35,7 +35,15 @@
             <p>请选择上方选项</p>
           </div>
         </Upload>
-        <Upload v-else type="drag" :data="postData" :action="url" accept=".xls, .xlsx">
+        <Upload
+          v-else
+          type="drag"
+          :data="postData"
+          :action="url"
+          accept=".xls, .xlsx"
+          :on-success="handleSuccess"
+          :on-error="handleError"
+        >
           <div style="padding: 20px 0">
             <Icon
               type="ios-cloud-upload"
@@ -62,6 +70,14 @@ export default {
       },
       url: this.back_server + "/file/excel",
     };
+  },
+  methods: {
+    handleSuccess(response) {
+      console.log(response);
+    },
+    handleError() {
+      this.$Message.error("上传失败，请检查名单内是否含有已存在的学生数据");
+    },
   },
 };
 </script>

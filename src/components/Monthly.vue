@@ -52,6 +52,7 @@
         <Upload
           v-if="this.monthly.length < 6"
           type="drag"
+          :before-upload="beforeUpload(monthly.length + 1)"
           :data="uploadData"
           :action="uploadUrl"
           :on-success="handleSuccess"
@@ -201,6 +202,10 @@ export default {
       this.updateData.username = sessionStorage.getItem("username");
       this.updateData.number = number;
     },
+    beforeUpload(number) {
+      this.uploadData.username = sessionStorage.getItem("username")
+      this.uploadData.number = number
+    }
   },
 };
 </script>
