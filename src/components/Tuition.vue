@@ -9,12 +9,12 @@
         :data="data"
       ></Table>
     </Col>
-    <Col offset="1">
-      <div>
-        学费证明
-      </div>
+    <Col offset="1" span="16">
+      <Tag> 学费证明 </Tag>
       <Row v-for="item in img" :key="item" style="margin-bottom: 3vh">
-        <img :src="item" />
+        <Card>
+          <img :src="item" width="100%" />
+        </Card>
       </Row>
       <Divider dashed></Divider>
       <Row justify="center" v-if="current != ''">

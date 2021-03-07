@@ -9,10 +9,12 @@
         :data="data"
       ></Table>
     </Col>
-    <Col offset="1" span="10">
-      <div>成绩证明</div>
+    <Col offset="1" span="16">
+      <Tag>成绩证明</Tag>
       <Row v-for="item in img" :key="item" style="margin-bottom: 3vh">
-        <img :src="item" />
+        <Card>
+          <img :src="item" width="100%"/>
+        </Card>
       </Row>
       <Divider dashed></Divider>
       <Row justify="center" v-if="current != ''">
@@ -91,6 +93,7 @@ export default {
         this.img.push(this.back_server + currentRow.gradePath[i]);
       }
       this.current = currentRow.uid;
+      console.log(this.img)
     },
     ok(value) {
       this.$Spin.show();

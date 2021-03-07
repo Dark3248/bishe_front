@@ -12,7 +12,7 @@
     <Col offset="1" span="16">
       <Tabs v-if="current != ''">
         <TabPane
-          :label="(index + 1).toString()"
+          :label="'月报' + (index + 1).toString()"
           v-for="(item, index) in pdf"
           :key="item.num"
         >

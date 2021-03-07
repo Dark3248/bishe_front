@@ -11,7 +11,7 @@
     </Col>
     <Col offset="1" span="15">
       <div>
-        简历
+        <Tag>简历</Tag>
         <Card v-for="item in resume" :key="item" style="margin-bottom: 3vh">
           <pdf
             ref="pdf"
@@ -40,17 +40,23 @@
       <Tabs>
         <TabPane label="保险证明">
           <Row v-for="item in insurance" :key="item" style="margin-bottom: 3vh">
-            <img :src="item" />
+            <Card>
+              <img :src="item" width="100%" />
+            </Card>
           </Row>
         </TabPane>
         <TabPane label="实习协议">
           <Row v-for="item in contract" :key="item" style="margin-bottom: 3vh">
-            <img :src="item" />
+            <Card>
+              <img :src="item" width="100%" />
+            </Card>
           </Row>
         </TabPane>
-        <TabPane v-if="liangfang.length != []" label="两方协议">
+        <TabPane v-if="liangfang.length != 0" label="两方协议">
           <Row v-for="item in liangfang" :key="item" style="margin-bottom: 3vh">
-            <img :src="item" />
+            <Card>
+              <img :src="item" width="100%" />
+            </Card>
           </Row>
         </TabPane>
       </Tabs>
@@ -128,6 +134,7 @@ export default {
       this.$axios.get(this.back_server + "/examine/getOther").then((res) => {
         this.data = res.data;
         if (this.data.length !== 0) this.change(this.data[0]);
+        console.log(this.data)
       });
     },
     change(currentRow, index) {
@@ -145,7 +152,8 @@ export default {
         this.contract.push(this.back_server + currentRow.contractPath[i]);
       }
       for (var i = 0; i < currentRow.liangfangPath.length; i++) {
-        this.liangfang.push(this.back_server + currentRow.liangfangPath[i]);
+        if (currentRow.liangfangPath[i] != "")
+          this.liangfang.push(this.back_server + currentRow.liangfangPath[i]);
       }
       this.current = currentRow.uid;
     },

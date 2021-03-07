@@ -3,12 +3,20 @@
     <div v-if="submit == true && examine == false">
       <Alert type="warning">请等待审批</Alert>
     </div>
-    <Alert v-else-if="submit == true && examine == true">
-      班主任：{{ formValidate.examineContent1 }} | 学籍管理员：{{
-        formValidate.examineContent2
-      }}
-      | 部门管理员：{{ formValidate.examineContent3 }}
-    </Alert>
+    <div v-else-if="submit == true && examine == true">
+      <div>
+        <Alert v-if="formValidate.examineStatus1 == 1"> 班主任：{{ formValidate.examineContent1 }} </Alert>
+        <Alert v-else type="error"> 班主任：{{ formValidate.examineContent1 }} </Alert>
+      </div>
+      <div>
+        <Alert v-if="formValidate.examineStatus2 == 1"> 学籍管理员：{{ formValidate.examineContent2 }} </Alert>
+        <Alert v-else type="error"> 学籍管理员：{{ formValidate.examineContent2 }} </Alert>
+      </div>
+      <div>
+        <Alert v-if="formValidate.examineStatus3 == 1"> 部门管理员：{{ formValidate.examineContent3 }} </Alert>
+        <Alert v-else type="error"> 部门管理员：{{ formValidate.examineContent3 }} </Alert>
+      </div>
+    </div>
     <div>
       <Form ref="formValidate" :model="formValidate" :rules="ruleValidate">
         <FormItem label="姓名" prop="name">
@@ -221,9 +229,9 @@
         </FormItem>
       </Form>
       <Row>
-        <Col span="4">
+        <Col>
           <Upload
-            v-if="submit == false || formValidate.examineStatus1 == 2"
+            v-if="submit == false || formValidate.examineStatus3 == 2"
             :data="uploadData[0]"
             :on-remove="handleRemove"
             :action="url"
@@ -242,7 +250,7 @@
             <Button icon="ios-cloud-upload-outline">上传简历（.pdf）</Button>
           </Upload>
         </Col>
-        <Col span="4">
+        <Col offset="1">
           <Upload
             v-if="submit == false || formValidate.examineStatus3 == 2"
             multiple
@@ -269,7 +277,7 @@
             >
           </Upload>
         </Col>
-        <Col span="4">
+        <Col offset="1">
           <Upload
             v-if="submit == false || formValidate.examineStatus2 == 2"
             multiple
@@ -296,9 +304,9 @@
             >
           </Upload>
         </Col>
-        <Col span="4">
+        <Col offset="1">
           <Upload
-            v-if="submit == false || formValidate.examineStatus3 == 2"
+            v-if="submit == false || formValidate.examineStatus1 == 2"
             multiple
             :data="uploadData[3]"
             :on-remove="handleRemove"
@@ -319,7 +327,9 @@
             <Button icon="ios-cloud-upload-outline">上传成绩单（图片）</Button>
           </Upload>
         </Col>
-        <Col span="4">
+      </Row>
+      <Row>
+        <Col>
           <Upload
             v-if="submit == false || formValidate.examineStatus3 == 2"
             multiple
@@ -346,7 +356,7 @@
             >
           </Upload>
         </Col>
-        <Col span="4" v-if="formValidate.internshipType == '2'">
+        <Col offset="1" v-if="formValidate.internshipType == '2'">
           <Upload
             v-if="submit == false || formValidate.examineStatus3 == 2"
             multiple
@@ -375,7 +385,12 @@
         </Col>
       </Row>
       <Button
-        v-if="submit == false || formValidate.examineStatus3 == 2 || formValidate.examineStatus2 == 2 || formValidate.examineStatus1 == 2"
+        v-if="
+          submit == false ||
+          formValidate.examineStatus3 == 2 ||
+          formValidate.examineStatus2 == 2 ||
+          formValidate.examineStatus1 == 2
+        "
         type="primary"
         @click="handleSubmit('formValidate')"
         style="margin-top: 25px"
@@ -483,6 +498,10 @@ export default {
             required: true,
             message: "不能为空",
           },
+          {
+            len: 11,
+            message: "请输入正确的电话号码",
+          },
         ],
         companyContact: [
           {
@@ -495,6 +514,10 @@ export default {
             required: true,
             message: "不能为空",
           },
+          {
+            len: 11,
+            message: "请输入正确的电话号码",
+          },
         ],
         companyTeacher: [
           {
@@ -506,6 +529,10 @@ export default {
           {
             required: true,
             message: "不能为空",
+          },
+          {
+            len: 11,
+            message: "请输入正确的电话号码",
           },
         ],
         companyTeacherPost: [

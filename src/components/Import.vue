@@ -73,7 +73,11 @@ export default {
   },
   methods: {
     handleSuccess(response) {
-      console.log(response);
+      console.log(response)
+      if (response == 1)
+        this.$Message.success("提交成功")
+      else 
+        this.$Message.error("上传失败，请检查名单是否符合格式")
     },
     handleError() {
       this.$Message.error("上传失败，请检查名单内是否含有已存在的学生数据");
