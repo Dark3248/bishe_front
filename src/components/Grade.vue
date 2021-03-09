@@ -22,7 +22,7 @@
         highlight-row
         @on-row-click="change"
         :columns="columns"
-        :data="data"
+        :data="data1"
       ></Table>
     </Col>
     <Col offset="1" span="16">
@@ -79,6 +79,7 @@ export default {
         },
       ],
       data: [],
+      data1: [],
       img: [],
       postData: {
         uid: "",
@@ -87,6 +88,8 @@ export default {
         examineContent: "",
       },
       current: "",
+      search1: "",
+      search2: "",
     };
   },
   mounted() {
@@ -103,6 +106,7 @@ export default {
         .then((res) => {
           this.data = res.data;
           if (this.data.length !== 0) this.change(this.data[0]);
+          this.data1 = this.data
         });
     },
     change(currentRow, index) {
@@ -111,7 +115,6 @@ export default {
         this.img.push(this.back_server + currentRow.gradePath[i]);
       }
       this.current = currentRow.uid;
-      console.log(this.img);
     },
     ok(value) {
       this.$Spin.show();
@@ -132,6 +135,19 @@ export default {
       this.postData.examineContent = "";
     },
     cancel() {},
+    searchById() {
+      this.data1 = [];
+      for (var i = 0; i < this.data.length; i++) {
+        if (this.data[i].uid.match(this.search1)) this.data1.push(this.data[i]);
+      }
+    },
+    searchByName() {
+      this.data1 = [];
+      for (var i = 0; i < this.data.length; i++) {
+        if (this.data[i].name.match(this.search2))
+          this.data1.push(this.data[i]);
+      }
+    },
   },
 };
 </script>

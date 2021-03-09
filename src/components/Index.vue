@@ -44,6 +44,11 @@
             <MenuItem name="2">审核实习信息</MenuItem>
             <MenuItem name="3">导入名单</MenuItem>
           </div>
+          <div v-if="utype == 5">
+            <MenuItem name="1" style="margin-left: 50px">实习信息</MenuItem>
+            <MenuItem name="2">就业登记信息</MenuItem>
+            <MenuItem name="3">毕业登记信息</MenuItem>
+          </div>
           <div class="layout-nav">
             <a style="font-size: 18px; float: right; color: #f5f7f9">
               <Icon type="md-contact" />
@@ -65,6 +70,7 @@
           <Teacher v-if="utype == 2" ref="Teacher"></Teacher>
           <Admin1 v-if="utype == 3" ref="Admin1"></Admin1>
           <Admin2 v-if="utype == 4" ref="Admin2"></Admin2>
+          <SuperAdmin v-if="utype == 5" ref="SuperAdmin"></SuperAdmin>
         </Content>
       </Layout>
       <Footer class="layout-footer-center"
@@ -80,6 +86,7 @@ import Student from "@/components/Student.vue";
 import Teacher from "@/components/Teacher.vue";
 import Admin1 from "@/components/Admin1.vue";
 import Admin2 from "@/components/Admin2.vue";
+import SuperAdmin from "@/components/SuperAdmin.vue"
 export default {
   name: "Index",
   components: {
@@ -87,6 +94,7 @@ export default {
     Teacher,
     Admin1,
     Admin2,
+    SuperAdmin
   },
   data() {
     return {
@@ -108,8 +116,10 @@ export default {
         this.$refs.Teacher.change(name);
       } else if (this.utype === "3") {
         this.$refs.Admin1.change(name);
-      } else {
+      } else if (this.utype === "4"){
         this.$refs.Admin2.change(name);
+      } else {
+        this.$refs.SuperAdmin.change(name);
       }
     },
   },
