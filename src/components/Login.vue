@@ -20,7 +20,7 @@
           </FormItem>
           <FormItem>
             <a
-              href="https://cloud.beihangsoft.cn/?service=http://localhost:8080/login"
+              :href="url"
               >学生请使用统一认证登录</a
             >
           </FormItem>
@@ -38,6 +38,7 @@ export default {
   name: "Login",
   data() {
     return {
+      url: "https://cloud.beihangsoft.cn/?service=" + this.front_server +"/login",
       disHover: true,
       form: {
         username: "",
@@ -51,6 +52,7 @@ export default {
       this.$router.push("/");
       this.$Message.error("已登录，无需再次登录");
     }
+    console.log(this.$route.path)
     var auth = this.$route.query.authorization;
     if (auth != null) {
       this.$axios

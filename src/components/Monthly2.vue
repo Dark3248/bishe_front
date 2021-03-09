@@ -40,7 +40,16 @@
             </ButtonGroup>
           </div>
           <Row justify="center" style="margin-top: 3vh">
-            <Button type="success" style="margin-right: 10vh" @click="ok(1, item.num, index)"
+            <Button
+              type="success"
+              style="margin-right: 10vh"
+              @click="ok2()"
+              >全部通过</Button
+            >
+            <Button
+              type="success"
+              style="margin-right: 10vh"
+              @click="ok(1, item.num, index)"
               >通过</Button
             >
             <Button type="error" @click="modal = true">不通过</Button>
@@ -106,18 +115,19 @@ export default {
     refresh() {
       this.$axios.get(this.back_server + "/examine/getMonthly").then((res) => {
         this.data = res.data;
-        this.currentPage = []
+        this.currentPage = [];
         for (var i = 0; i < this.data.length; i++) {
           for (var j = 0; j < this.data[i].monthlyList.length; j++) {
-            this.data[i].monthlyList[j].path = this.back_server + this.data[i].monthlyList[j].path;
-            this.currentPage.push(1)
+            this.data[i].monthlyList[j].path =
+              this.back_server + this.data[i].monthlyList[j].path;
+            this.currentPage.push(1);
           }
         }
         if (this.data.length !== 0) this.change(this.data[0]);
       });
     },
     change(currentRow, index) {
-      this.pdf = currentRow.monthlyList
+      this.pdf = currentRow.monthlyList;
       this.current = currentRow.uid;
     },
     ok(value, num, index) {
@@ -136,15 +146,20 @@ export default {
           this.$Spin.hide();
         });
       this.postData.examineContent = "";
-      this.pageTotalNum.splice(index, 1)
+      this.pageTotalNum.splice(index, 1);
+    },
+    ok2() {
+      for (var i = 0; i < this.pdf.length; i++) {
+        this.ok(1, this.pdf[i].num, i);
+      }
     },
     cancel() {},
     loadPdfHandler(index) {
       this.currentPage[index] = 1;
     },
     changePdfPage(val, index) {
-      console.log(this.currentPage)
-      console.log(this.pageTotalNum)
+      console.log(this.currentPage);
+      console.log(this.pageTotalNum);
       if (val === 0 && this.currentPage[index] > 1) {
         this.$set(this.currentPage, index, this.currentPage[index] - 1);
       }

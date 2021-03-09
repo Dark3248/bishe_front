@@ -170,7 +170,7 @@
         </FormItem>
         <FormItem label="购买保险类型" prop="insuranceType">
           <Select v-model="formValidate.insuranceType" v-if="submit == false">
-            <Option value="1" v-if="formValidate.internshipType == '2'"
+            <Option value="1"
               >自己购买</Option
             >
             <Option value="2" v-if="formValidate.internshipType == '2'"
@@ -181,7 +181,7 @@
             >
           </Select>
           <Select v-model="formValidate.insuranceType" v-else disabled>
-            <Option value="1" v-if="formValidate.internshipType == '2'"
+            <Option value="1"
               >自己购买</Option
             >
             <Option value="2" v-if="formValidate.internshipType == '2'"
@@ -200,6 +200,7 @@
                 type="date"
                 placeholder="选择开始日期"
                 v-model="formValidate.insuranceStartDate"
+                :options="option1"
               ></DatePicker>
               <DatePicker
                 v-else
@@ -554,8 +555,8 @@ export default {
           },
           {
             type: "string",
-            max: 20,
-            message: "不超过20个字",
+            max: 100,
+            message: "不超过100个字",
           },
         ],
         projectInfo: [
@@ -565,8 +566,8 @@ export default {
           },
           {
             type: "string",
-            max: 20,
-            message: "不超过20个字",
+            max: 100,
+            message: "不超过100个字",
           },
         ],
         internshipType: [
@@ -623,6 +624,11 @@ export default {
           type: "liangfang",
         },
       ],
+      option1: {
+        disabledDate(date) {
+          return date && date.valueOf() >= new Date();
+        }
+      }
     };
   },
   mounted() {

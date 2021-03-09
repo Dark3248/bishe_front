@@ -9,6 +9,14 @@
           <Step title="毕业答辩"></Step>
           <Step title="离校阶段"></Step>
         </Steps>
+        <div v-if="status == 4" style="margin-top: 10vh; text-align: center">
+          <div v-if="book == false">
+            请检查图书归还情况和图书逾期欠费情况，与图书馆联系
+          </div>
+          <div v-if="paper == false" style="margin-top: 2vh">
+            请及时提交论文电子版
+          </div>
+        </div>
       </div>
       <div v-if="current == 2">
         <Monthly v-if="status > 0"></Monthly>
@@ -52,6 +60,8 @@ export default {
     return {
       current: 1,
       status: 0,
+      book: false,
+      paper: false
     };
   },
   mounted() {
@@ -63,7 +73,20 @@ export default {
     } else {
       this.status = i - 2
     }
-
+    this.$axios.get(this.back_server + "/user/getBook", {
+      params: {
+        username: sessionStorage.getItem("username")
+      }
+    }).then(res => {
+      this.book = res.data
+    })
+    this.$axios.get(this.back_server + "/user/getPaper", {
+      params: {
+        username: sessionStorage.getItem("username")
+      }
+    }).then(res => {
+      this.paper = res.data
+    })
   },
   methods: {
     change(name) {

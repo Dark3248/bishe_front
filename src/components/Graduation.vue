@@ -37,7 +37,7 @@
     <FormItem label="学制（年）" prop="studyYear">
       <Select v-model="formValidate.studyYear" :disabled="submit">
         <Option value="3">3年</Option>
-        <Option value="2">2年</Option>
+        <Option value="2">2.5年</Option>
       </Select>
     </FormItem>
     <FormItem label="毕业时间" prop="graduateTime">
@@ -95,7 +95,7 @@
         <Option value="false">否</Option>
       </Select>
     </FormItem>
-    <FormItem label="毕业院校" prop="college">
+    <FormItem label="专业方向" prop="college">
       <Input v-model="formValidate.college" :disabled="submit"></Input>
     </FormItem>
     <FormItem>
@@ -309,8 +309,10 @@ export default {
           this.$axios.post(
             this.back_server + "/form/graduation",
             this.formValidate
-          );
-          this.$Message.success("success");
+          ).then(res => {
+            this.$Message.success("success");
+            this.submit = true;
+          });
         } else {
           this.$Message.error("请填写所有信息");
         }

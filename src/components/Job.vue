@@ -94,7 +94,7 @@ export default {
           this.formValidate = res.data;
           this.formValidate.type += "";
         } else {
-          this.submit = false
+          this.submit = false;
         }
       });
   },
@@ -104,7 +104,10 @@ export default {
         if (valid) {
           this.$axios
             .post(this.back_server + "/form/job", this.formValidate)
-          this.$Message.success("success");
+            .then((res) => {
+              this.submit = true;
+              this.$Message.success("success");
+            });
         } else {
           this.$Message.error("请填写所有信息");
         }
