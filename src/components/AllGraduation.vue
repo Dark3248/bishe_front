@@ -32,7 +32,7 @@
         <div v-if="current.gender == 1">男</div>
         <div v-if="current.gender == 2">女</div>
       </Row>
-      <Row> 出生日期：{{ current.birthday }} </Row>
+      <Row> 出生日期：{{ $moment(current.birthday).format("YYYY-MM-DD") }} </Row>
       <Row> 政治面貌：{{ current.politic }} </Row>
       <Row> 籍贯：{{ current.birthPlace }} </Row>
       <Row> 专业：{{ current.major }} </Row>
@@ -41,7 +41,7 @@
         <div v-if="current.studyYear == 2">2.5年</div>
         <div v-if="current.studyYear == 3">3年</div>
       </Row>
-      <Row> 毕业时间：{{ current.graduateTime }} </Row>
+      <Row> 毕业时间：{{ $moment(current.graduateTime).format("YYYY-MM-DD") }} </Row>
       <Row> 手机号码：{{ current.phoneNumber }} </Row>
       <Row> qq：{{ current.qq }} </Row>
       <Row> e-mail：{{ current.email }} </Row>
@@ -49,7 +49,7 @@
       <Row> 工作部门：{{ current.department }} </Row>
       <Row> 单位电子邮件：{{ current.companyEmail }} </Row>
       <Row> 工作职位：{{ current.title }} </Row>
-      <Row> 到单位工作时间：{{ current.companyTime }} </Row>
+      <Row> 到单位工作时间：{{ $moment(current.companyTime).format("YYYY-MM-DD") }} </Row>
       <Row> 单位联系人：{{ current.companyContact }} </Row>
       <Row> 单位联系电话：{{ current.companyPhone }} </Row>
       <Row> 年薪：{{ current.salary }}万 </Row>

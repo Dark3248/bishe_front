@@ -63,8 +63,8 @@
         <div v-if="current.insuranceType == 2">公司购买</div>
         <div v-if="current.insuranceType == 3">学院购买</div>
       </Row>
-      <Row> 保险购买日期：{{ current.insuranceStartDate }} </Row>
-      <Row> 保险结束日期：{{ current.insuranceEndDate }} </Row>
+      <Row> 保险购买日期：{{ $moment(current.insuranceStartDate).format("YYYY-MM-DD") }} </Row>
+      <Row> 保险结束日期：{{ $moment(current.insuranceEndDate).format("YYYY-MM-DD") }} </Row>
       <Row>
         班主任审批情况：
         <div v-if="current.examineStatus1 == 1">通过</div>
