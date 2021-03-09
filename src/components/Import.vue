@@ -1,5 +1,22 @@
 <template>
   <div>
+    <Row>
+      <Col offset="20">
+        <Row> 模板列表： </Row>
+        <Row>
+          <a :href="download1">学生名单模板</a>
+        </Row>
+        <Row>
+          <a :href="download2">答辩名单模板</a>
+        </Row>
+        <Row>
+          <a :href="download3">图书归还名单模板</a>
+        </Row>
+        <Row>
+          <a :href="download4">论文电子版提交名单模板</a>
+        </Row>
+      </Col>
+    </Row>
     <Row justify="center" style="margin-top: 10vh">
       <RadioGroup v-model="postData.type">
         <div v-if="utype == 2">
@@ -69,15 +86,17 @@ export default {
         type: "",
       },
       url: this.back_server + "/file/excel",
+      download1: this.back_server + "/download/download1.xlsx",
+      download2: this.back_server + "/download/download2.xlsx",
+      download3: this.back_server + "/download/download3.xlsx",
+      download4: this.back_server + "/download/download4.xlsx",
     };
   },
   methods: {
     handleSuccess(response) {
-      console.log(response)
-      if (response == 1)
-        this.$Message.success("提交成功")
-      else 
-        this.$Message.error("上传失败，请检查名单是否符合格式")
+      console.log(response);
+      if (response == 1) this.$Message.success("提交成功");
+      else this.$Message.error("上传失败，请检查名单是否符合格式");
     },
     handleError() {
       this.$Message.error("上传失败，请检查名单内是否含有已存在的学生数据");

@@ -2,6 +2,22 @@
   <div v-if="data.length == 0">您已完成了所有审批</div>
   <Row v-else>
     <Col offset="1" span="5">
+      <Row style="margin-bottom: 1vh">
+        <Input
+          search
+          placeholder="根据学号检索"
+          v-model="search1"
+          @on-search="searchById()"
+        ></Input>
+      </Row>
+      <Row style="margin-bottom: 1vh">
+        <Input
+          search
+          placeholder="根据姓名检索"
+          v-model="search2"
+          @on-search="searchByName()"
+        ></Input>
+      </Row>
       <Table
         highlight-row
         @on-row-click="change"

@@ -2,42 +2,56 @@
   <div v-if="data.length == 0">您已完成了所有审批</div>
   <Row v-else>
     <Col offset="1" span="5">
+      <Row style="margin-bottom: 1vh">
+        <Input
+          search
+          placeholder="根据学号检索"
+          v-model="search1"
+          @on-search="searchById()"
+        ></Input>
+      </Row>
+      <Row style="margin-bottom: 1vh">
+        <Input
+          search
+          placeholder="根据姓名检索"
+          v-model="search2"
+          @on-search="searchByName()"
+        ></Input>
+      </Row>
       <Table
         highlight-row
         @on-row-click="change"
         :columns="columns"
-        :data="data"
+        :data="data1"
       ></Table>
     </Col>
     <Col offset="1" span="15">
-      <div>
-        <Tag>简历</Tag>
-        <Card v-for="item in resume" :key="item" style="margin-bottom: 3vh">
-          <pdf
-            ref="pdf"
-            :src="item"
-            @num-pages="pageTotalNum = $event"
-            @page-loaded="currentPage = $event"
-            @loaded="loadPdfHandler"
-            :page="currentPage"
-          >
-          </pdf>
-        </Card>
-        <div style="text-align: center; margin-top: 1vh">
-          <ButtonGroup shape="circle">
-            <Button type="primary" ghost @click="changePdfPage(0)">
-              <Icon type="ios-arrow-back"></Icon>
-              上一页
-            </Button>
-            <Button type="primary" ghost @click="changePdfPage(1)">
-              下一页
-              <Icon type="ios-arrow-forward"></Icon>
-            </Button>
-          </ButtonGroup>
-        </div>
-      </div>
-      <Divider dashed></Divider>
       <Tabs>
+        <TabPane label="简历">
+          <Card v-for="item in resume" :key="item" style="margin-bottom: 3vh">
+            <pdf
+              ref="pdf"
+              :src="item"
+              @num-pages="pageTotalNum = $event"
+              @page-loaded="currentPage = $event"
+              @loaded="loadPdfHandler"
+              :page="currentPage"
+            >
+            </pdf>
+          </Card>
+          <div style="text-align: center; margin-top: 1vh">
+            <ButtonGroup shape="circle">
+              <Button type="primary" ghost @click="changePdfPage(0)">
+                <Icon type="ios-arrow-back"></Icon>
+                上一页
+              </Button>
+              <Button type="primary" ghost @click="changePdfPage(1)">
+                下一页
+                <Icon type="ios-arrow-forward"></Icon>
+              </Button>
+            </ButtonGroup>
+          </div>
+        </TabPane>
         <TabPane label="保险证明">
           <Row v-for="item in insurance" :key="item" style="margin-bottom: 3vh">
             <Card>
@@ -111,6 +125,7 @@ export default {
         },
       ],
       data: [],
+      data1: [],
       resume: [],
       insurance: [],
       contract: [],
@@ -124,6 +139,8 @@ export default {
       current: "",
       pageTotalNum: 1,
       currentPage: 1,
+      search1: "",
+      search2: "",
     };
   },
   mounted() {
@@ -134,7 +151,7 @@ export default {
       this.$axios.get(this.back_server + "/examine/getOther").then((res) => {
         this.data = res.data;
         if (this.data.length !== 0) this.change(this.data[0]);
-        console.log(this.data)
+        this.data1 = this.data;
       });
     },
     change(currentRow, index) {
@@ -185,6 +202,19 @@ export default {
       }
       if (val === 1 && this.currentPage < this.pageTotalNum) {
         this.currentPage++;
+      }
+    },
+    searchById() {
+      this.data1 = [];
+      for (var i = 0; i < this.data.length; i++) {
+        if (this.data[i].uid.match(this.search1)) this.data1.push(this.data[i]);
+      }
+    },
+    searchByName() {
+      this.data1 = [];
+      for (var i = 0; i < this.data.length; i++) {
+        if (this.data[i].name.match(this.search2))
+          this.data1.push(this.data[i]);
       }
     },
   },

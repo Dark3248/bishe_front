@@ -2,6 +2,22 @@
   <div v-if="data.length == 0">您已完成了所有审批</div>
   <Row v-else>
     <Col offset="1" span="5">
+      <Row style="margin-bottom: 1vh">
+        <Input
+          search
+          placeholder="根据学号检索"
+          v-model="search1"
+          @on-search="searchById()"
+        ></Input>
+      </Row>
+      <Row style="margin-bottom: 1vh">
+        <Input
+          search
+          placeholder="根据姓名检索"
+          v-model="search2"
+          @on-search="searchByName()"
+        ></Input>
+      </Row>
       <Table
         highlight-row
         @on-row-click="change"
@@ -13,7 +29,7 @@
       <Tag>成绩证明</Tag>
       <Row v-for="item in img" :key="item" style="margin-bottom: 3vh">
         <Card>
-          <img :src="item" width="100%"/>
+          <img :src="item" width="100%" />
         </Card>
       </Row>
       <Divider dashed></Divider>
@@ -78,14 +94,16 @@ export default {
   },
   methods: {
     refresh() {
-      this.$axios.get(this.back_server + "/examine/getGrade", {
-        params: {
-          username: sessionStorage.getItem('username')
-        }
-      }).then((res) => {
-        this.data = res.data;
-        if (this.data.length !== 0) this.change(this.data[0]);
-      });
+      this.$axios
+        .get(this.back_server + "/examine/getGrade", {
+          params: {
+            username: sessionStorage.getItem("username"),
+          },
+        })
+        .then((res) => {
+          this.data = res.data;
+          if (this.data.length !== 0) this.change(this.data[0]);
+        });
     },
     change(currentRow, index) {
       this.img = [];
@@ -93,7 +111,7 @@ export default {
         this.img.push(this.back_server + currentRow.gradePath[i]);
       }
       this.current = currentRow.uid;
-      console.log(this.img)
+      console.log(this.img);
     },
     ok(value) {
       this.$Spin.show();
