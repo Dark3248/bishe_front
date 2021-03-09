@@ -5,16 +5,28 @@
     </div>
     <div v-else-if="submit == true && examine == true">
       <div>
-        <Alert v-if="formValidate.examineStatus1 == 1"> 班主任：{{ formValidate.examineContent1 }} </Alert>
-        <Alert v-else type="error"> 班主任：{{ formValidate.examineContent1 }} </Alert>
+        <Alert v-if="formValidate.examineStatus1 == 1">
+          班主任：{{ formValidate.examineContent1 }}
+        </Alert>
+        <Alert v-else type="error">
+          班主任：{{ formValidate.examineContent1 }}
+        </Alert>
       </div>
       <div>
-        <Alert v-if="formValidate.examineStatus2 == 1"> 学籍管理员：{{ formValidate.examineContent2 }} </Alert>
-        <Alert v-else type="error"> 学籍管理员：{{ formValidate.examineContent2 }} </Alert>
+        <Alert v-if="formValidate.examineStatus2 == 1">
+          学籍管理员：{{ formValidate.examineContent2 }}
+        </Alert>
+        <Alert v-else type="error">
+          学籍管理员：{{ formValidate.examineContent2 }}
+        </Alert>
       </div>
       <div>
-        <Alert v-if="formValidate.examineStatus3 == 1"> 部门管理员：{{ formValidate.examineContent3 }} </Alert>
-        <Alert v-else type="error"> 部门管理员：{{ formValidate.examineContent3 }} </Alert>
+        <Alert v-if="formValidate.examineStatus3 == 1">
+          部门管理员：{{ formValidate.examineContent3 }}
+        </Alert>
+        <Alert v-else type="error">
+          部门管理员：{{ formValidate.examineContent3 }}
+        </Alert>
       </div>
     </div>
     <div>
@@ -26,44 +38,38 @@
           <Input disabled v-model="formValidate.uid"></Input>
         </FormItem>
         <FormItem label="手机" prop="phoneNumber">
-          <Input
-            v-if="submit == false"
-            v-model="formValidate.phoneNumber"
-          ></Input>
+          <Input v-if="show == true" v-model="formValidate.phoneNumber"></Input>
           <Input v-else disabled v-model="formValidate.phoneNumber"></Input>
         </FormItem>
         <FormItem label="E-mail" prop="email">
-          <Input v-if="submit == false" v-model="formValidate.email"></Input>
+          <Input v-if="show == true" v-model="formValidate.email"></Input>
           <Input v-else disabled v-model="formValidate.email"></Input>
         </FormItem>
         <FormItem label="身份证号" prop="idCard">
-          <Input v-if="submit == false" v-model="formValidate.idCard"></Input>
+          <Input v-if="show == true" v-model="formValidate.idCard"></Input>
           <Input v-else disabled v-model="formValidate.idCard"></Input>
         </FormItem>
         <FormItem label="实习公司名称" prop="companyName">
-          <Input
-            v-if="submit == false"
-            v-model="formValidate.companyName"
-          ></Input>
+          <Input v-if="show == true" v-model="formValidate.companyName"></Input>
           <Input v-else disabled v-model="formValidate.companyName"></Input>
         </FormItem>
         <FormItem label="实习公司网址/单位地址" prop="companyWebsite">
           <Input
-            v-if="submit == false"
+            v-if="show == true"
             v-model="formValidate.companyWebsite"
           ></Input>
           <Input v-else disabled v-model="formValidate.companyWebsite"></Input>
         </FormItem>
         <FormItem label="学院指导教师姓名" prop="schoolTeacher">
           <Input
-            v-if="submit == false"
+            v-if="show == true"
             v-model="formValidate.schoolTeacher"
           ></Input>
           <Input v-else disabled v-model="formValidate.schoolTeacher"></Input>
         </FormItem>
         <FormItem label="学院指导教师电话" prop="schoolTeacherPhone">
           <Input
-            v-if="submit == false"
+            v-if="show == true"
             v-model="formValidate.schoolTeacherPhone"
           ></Input>
           <Input
@@ -74,14 +80,14 @@
         </FormItem>
         <FormItem label="企业联系人姓名" prop="companyContact">
           <Input
-            v-if="submit == false"
+            v-if="show == true"
             v-model="formValidate.companyContact"
           ></Input>
           <Input v-else disabled v-model="formValidate.companyContact"></Input>
         </FormItem>
         <FormItem label="企业联系人电话" prop="companyContactPhone">
           <Input
-            v-if="submit == false"
+            v-if="show == true"
             v-model="formValidate.companyContactPhone"
           ></Input>
           <Input
@@ -92,14 +98,14 @@
         </FormItem>
         <FormItem label="企业实习导师姓名" prop="companyTeacher">
           <Input
-            v-if="submit == false"
+            v-if="show == true"
             v-model="formValidate.companyTeacher"
           ></Input>
           <Input v-else disabled v-model="formValidate.companyTeacher"></Input>
         </FormItem>
         <FormItem label="企业实习导师岗位职务" prop="companyTeacherPost">
           <Input
-            v-if="submit == false"
+            v-if="show == true"
             v-model="formValidate.companyTeacherPost"
           ></Input>
           <Input
@@ -110,7 +116,7 @@
         </FormItem>
         <FormItem label="企业实习导师电话" prop="companyTeacherPhone">
           <Input
-            v-if="submit == false"
+            v-if="show == true"
             v-model="formValidate.companyTeacherPhone"
           ></Input>
           <Input
@@ -122,7 +128,7 @@
         <FormItem label="导师资格认证" prop="companyTeacherQualification">
           <Select
             v-model="formValidate.companyTeacherQualification"
-            v-if="submit == false"
+            v-if="show == true"
           >
             <Option value="1">本科毕业十年以上</Option>
             <Option value="2">硕士毕业五年以上</Option>
@@ -142,7 +148,7 @@
         </FormItem>
         <FormItem label="企业实习导师介绍" prop="companyTeacherInfo">
           <Input
-            v-if="submit == false"
+            v-if="show == true"
             v-model="formValidate.companyTeacherInfo"
           ></Input>
           <Input
@@ -152,14 +158,11 @@
           ></Input>
         </FormItem>
         <FormItem label="个人从事项目情况" prop="projectInfo">
-          <Input
-            v-if="submit == false"
-            v-model="formValidate.projectInfo"
-          ></Input>
+          <Input v-if="show == true" v-model="formValidate.projectInfo"></Input>
           <Input v-else disabled v-model="formValidate.projectInfo"></Input>
         </FormItem>
         <FormItem label="实习协议类型" prop="internshipType">
-          <Select v-model="formValidate.internshipType" v-if="submit == false">
+          <Select v-model="formValidate.internshipType" v-if="show == true">
             <Option value="1">签订三方协议</Option>
             <Option value="2">签订两方协议</Option>
           </Select>
@@ -169,10 +172,8 @@
           </Select>
         </FormItem>
         <FormItem label="购买保险类型" prop="insuranceType">
-          <Select v-model="formValidate.insuranceType" v-if="submit == false">
-            <Option value="1"
-              >自己购买</Option
-            >
+          <Select v-model="formValidate.insuranceType" v-if="show == true">
+            <Option value="1">自己购买</Option>
             <Option value="2" v-if="formValidate.internshipType == '2'"
               >公司购买</Option
             >
@@ -181,9 +182,7 @@
             >
           </Select>
           <Select v-model="formValidate.insuranceType" v-else disabled>
-            <Option value="1"
-              >自己购买</Option
-            >
+            <Option value="1">自己购买</Option>
             <Option value="2" v-if="formValidate.internshipType == '2'"
               >公司购买</Option
             >
@@ -196,7 +195,7 @@
           <Row>
             <FormItem prop="insuranceStartDate">
               <DatePicker
-                v-if="submit == false"
+                v-if="show == true"
                 type="date"
                 placeholder="选择开始日期"
                 v-model="formValidate.insuranceStartDate"
@@ -213,7 +212,7 @@
             <div style="margin-left: 10px; margin-right: 10px">——</div>
             <FormItem prop="insuranceStartDate">
               <DatePicker
-                v-if="submit == false"
+                v-if="show == true"
                 type="date"
                 placeholder="选择结束日期"
                 v-model="formValidate.insuranceEndDate"
@@ -229,6 +228,7 @@
           </Row>
         </FormItem>
       </Form>
+      <Alert v-if="show == true">下列文件不能更改，只能等待审批不通过后才能更改</Alert>
       <Row>
         <Col>
           <Upload
@@ -251,7 +251,7 @@
             <Button icon="ios-cloud-upload-outline">上传简历（.pdf）</Button>
           </Upload>
         </Col>
-        <Col offset="1">
+        <Col offset="2">
           <Upload
             v-if="submit == false || formValidate.examineStatus3 == 2"
             multiple
@@ -278,7 +278,7 @@
             >
           </Upload>
         </Col>
-        <Col offset="1">
+        <Col offset="2">
           <Upload
             v-if="submit == false || formValidate.examineStatus2 == 2"
             multiple
@@ -305,7 +305,7 @@
             >
           </Upload>
         </Col>
-        <Col offset="1">
+        <Col offset="2">
           <Upload
             v-if="submit == false || formValidate.examineStatus1 == 2"
             multiple
@@ -329,7 +329,7 @@
           </Upload>
         </Col>
       </Row>
-      <Row>
+      <Row style="margin-top: 1vh">
         <Col>
           <Upload
             v-if="submit == false || formValidate.examineStatus3 == 2"
@@ -357,7 +357,7 @@
             >
           </Upload>
         </Col>
-        <Col offset="1" v-if="formValidate.internshipType == '2'">
+        <Col offset="2" v-if="formValidate.internshipType == '2'">
           <Upload
             v-if="submit == false || formValidate.examineStatus3 == 2"
             multiple
@@ -390,14 +390,37 @@
           submit == false ||
           formValidate.examineStatus3 == 2 ||
           formValidate.examineStatus2 == 2 ||
-          formValidate.examineStatus1 == 2
+          formValidate.examineStatus1 == 2 ||
+          show == true
         "
         type="primary"
         @click="handleSubmit('formValidate')"
         style="margin-top: 25px"
       >
-        Submit
+        提交
       </Button>
+      <div>
+        <Button
+          v-if="
+            submit == true &&
+            formValidate.examineStatus3 == 1 &&
+            formValidate.examineStatus2 == 1 &&
+            formValidate.examineStatus1 == 1
+          "
+          type="primary"
+          style="margin-top: 25px"
+        >
+          下载实习登记表
+        </Button>
+        <Button
+          v-else-if="submit == true"
+          type="primary"
+          @click="changeShow()"
+          style="margin-top: 25px"
+        >
+          修改个人信息
+        </Button>
+      </div>
     </div>
   </div>
 </template>
@@ -407,6 +430,7 @@ export default {
   name: "Internship",
   data() {
     return {
+      show: true,
       submit: false,
       examine: false,
       formValidate: {
@@ -627,8 +651,8 @@ export default {
       option1: {
         disabledDate(date) {
           return date && date.valueOf() >= new Date();
-        }
-      }
+        },
+      },
     };
   },
   mounted() {
@@ -647,6 +671,7 @@ export default {
           });
         } else {
           this.submit = true;
+          this.show = false;
           this.formValidate = res.data;
           this.formValidate.insuranceType += "";
           this.formValidate.internshipType += "";
@@ -691,6 +716,7 @@ export default {
                 );
                 this.$Message.success("Success!");
                 this.submit = true;
+                this.show = false;
                 this.examine = false;
               }
             });
@@ -706,6 +732,9 @@ export default {
           path: file.response.path,
         })
       );
+    },
+    changeShow() {
+      this.show = true;
     },
   },
 };

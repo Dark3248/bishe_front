@@ -34,7 +34,7 @@
         @click="handleSubmit('formValidate')"
         v-if="submit == false"
       >
-        Submit
+        提交
       </Button>
     </FormItem>
   </Form>

@@ -23,7 +23,7 @@
     <Layout :style="{ minHeight: '100vh' }">
       <Header>
         <Menu @on-select="changePage" mode="horizontal" theme="dark">
-          <a class="layout-logo"> 研究生毕业过程管理系统 </a>
+          <a class="layout-logo"> 北航软件学院毕业生过程管理系统 </a>
           <div v-if="utype == 1">
             <MenuItem name="1" style="margin-left: 50px">总览</MenuItem>
             <MenuItem name="2">提交月报</MenuItem>
@@ -67,7 +67,10 @@
           <Admin2 v-if="utype == 4" ref="Admin2"></Admin2>
         </Content>
       </Layout>
-      <Footer class="layout-footer-center">版权说明</Footer>
+      <Footer class="layout-footer-center"
+        >Copyright©2021 School of Software,BUAA. All Right Reserved.
+        京ICP备05004617号-5
+      </Footer>
     </Layout>
   </div>
 </template>
@@ -89,13 +92,13 @@ export default {
     return {
       username: "",
       utype: 0,
-      name: ""
+      name: "",
     };
   },
   mounted() {
     this.username = sessionStorage.getItem("username");
     this.utype = sessionStorage.getItem("utype");
-    this.name = sessionStorage.getItem("name")
+    this.name = sessionStorage.getItem("name");
   },
   methods: {
     changePage(name) {
