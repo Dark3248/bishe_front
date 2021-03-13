@@ -3,16 +3,16 @@
     <Row>
       <Col offset="20">
         <Row> 模板列表： </Row>
-        <Row>
+        <Row v-if="utype == 3">
           <a :href="download1">学生名单模板</a>
         </Row>
-        <Row>
+        <Row v-if="utype == 2">
           <a :href="download2">答辩名单模板</a>
         </Row>
-        <Row>
+        <Row v-if="utype == 4">
           <a :href="download3">图书归还名单模板</a>
         </Row>
-        <Row>
+        <Row v-if="utype == 4">
           <a :href="download4">论文电子版提交名单模板</a>
         </Row>
       </Col>

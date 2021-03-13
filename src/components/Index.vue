@@ -12,6 +12,7 @@
 }
 .layout-nav {
   margin: 0 auto;
+  float: right;
 }
 .layout-footer-center {
   text-align: center;
@@ -50,7 +51,8 @@
             <MenuItem name="3">毕业登记信息</MenuItem>
           </div>
           <div class="layout-nav">
-            <a style="font-size: 18px; float: right; color: #f5f7f9">
+            <a @click="logout" style="color: #f5f7f9; margin-right: 1vh">退出登录</a>
+            <a style="font-size: 18px; color: #f5f7f9">
               <Icon type="md-contact" />
               {{ this.name }}
             </a>
@@ -86,7 +88,7 @@ import Student from "@/components/Student.vue";
 import Teacher from "@/components/Teacher.vue";
 import Admin1 from "@/components/Admin1.vue";
 import Admin2 from "@/components/Admin2.vue";
-import SuperAdmin from "@/components/SuperAdmin.vue"
+import SuperAdmin from "@/components/SuperAdmin.vue";
 export default {
   name: "Index",
   components: {
@@ -94,7 +96,7 @@ export default {
     Teacher,
     Admin1,
     Admin2,
-    SuperAdmin
+    SuperAdmin,
   },
   data() {
     return {
@@ -116,12 +118,16 @@ export default {
         this.$refs.Teacher.change(name);
       } else if (this.utype === "3") {
         this.$refs.Admin1.change(name);
-      } else if (this.utype === "4"){
+      } else if (this.utype === "4") {
         this.$refs.Admin2.change(name);
       } else {
         this.$refs.SuperAdmin.change(name);
       }
     },
+    logout() {
+      sessionStorage.clear()
+      window.location.reload()
+    }
   },
 };
 </script>

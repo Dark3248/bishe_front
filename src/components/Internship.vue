@@ -228,7 +228,9 @@
           </Row>
         </FormItem>
       </Form>
-      <Alert v-if="show == true">下列文件不能更改，只能等待审批不通过后才能更改</Alert>
+      <Alert v-if="show == true"
+        >下列文件不能更改，只能等待审批不通过后才能更改</Alert
+      >
       <Row>
         <Col>
           <Upload
@@ -400,18 +402,28 @@
         提交
       </Button>
       <div>
-        <Button
+        <div
           v-if="
             submit == true &&
             formValidate.examineStatus3 == 1 &&
             formValidate.examineStatus2 == 1 &&
             formValidate.examineStatus1 == 1
           "
-          type="primary"
-          style="margin-top: 25px"
         >
-          下载实习登记表
-        </Button>
+          <a
+            :href="formValidate.path"
+            v-if="formValidate.path != ''"
+            >点击下载实习登记表</a
+          >
+          <Button
+            v-else
+            type="primary"
+            style="margin-top: 25px"
+            @click="downloadPdf()"
+          >
+            生成实习登记表
+          </Button>
+        </div>
         <Button
           v-else-if="submit == true"
           type="primary"
@@ -735,6 +747,15 @@ export default {
     },
     changeShow() {
       this.show = true;
+    },
+    downloadPdf() {
+      this.$axios
+        .get(this.back_server + "/file/downloadIntern", {
+          params: { username: sessionStorage.getItem("username") },
+        })
+        .then((res) => {
+          this.formValidate.path = this.back_server + res.data;
+        });
     },
   },
 };
