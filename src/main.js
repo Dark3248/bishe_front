@@ -16,7 +16,7 @@ Vue.prototype.$axios = axios
 Vue.prototype.$qs = Qs
 Vue.prototype.back_server = 'http://10.251.0.57:8081'
 // Vue.prototype.back_server = 'http://localhost:8081'
-Vue.prototype.front_server = 'http://10/251/0/57:80'
+Vue.prototype.front_server = 'http://10.251.0.57:80'
 // Vue.prototype.front_server = 'http://localhost:8080'
 Vue.prototype.$moment = moment
 

@@ -38,7 +38,7 @@ export default {
   name: "Login",
   data() {
     return {
-      url: "https://cloud.beihangsoft.cn/?service=" + this.front_server +"/login",
+      url: "https://cloud.beihangsoft.cn/?service=" + this.front_server + "/login",
       disHover: true,
       form: {
         username: "",
