@@ -86,6 +86,7 @@ export default {
         type: "",
         examineStatus: "",
         examineContent: "",
+        examiner: ""
       },
       current: "",
       search1: "",
@@ -119,6 +120,7 @@ export default {
       this.postData.type = sessionStorage.getItem("utype");
       this.postData.examineStatus = value;
       this.postData.uid = this.current;
+      this.postData.examiner = sessionStorage.getItem("username")
       this.$axios
         .post(this.back_server + "/examine/", this.postData)
         .then((res) => {

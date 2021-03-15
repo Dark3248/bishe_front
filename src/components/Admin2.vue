@@ -10,6 +10,7 @@
       <div v-if="current == 3">
         <Import></Import>
       </div>
+      <ExamineRecord v-if="current == 4"></ExamineRecord>
     </Content>
   </Layout>
 </template>
@@ -17,13 +18,15 @@
 <script>
 import Import from '@/components/Import.vue'
 import Other from '@/components/Other.vue'
+import ExamineRecord from '@/components/ExamineRecord.vue'
 import Monthly2 from '@/components/Monthly2.vue'
 export default {
   name: "Admin2",
   components: {
     Import,
     Other,
-    Monthly2
+    Monthly2,
+    ExamineRecord
   },
   data() {
     return {

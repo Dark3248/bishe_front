@@ -7,18 +7,24 @@
       <div v-if="current == 2">
         <Import></Import>
       </div>
+      <ExamineRecord v-if="current == 3"></ExamineRecord>
+      <StudentList v-if="current == 4"></StudentList>
     </Content>
   </Layout>
 </template>
 
 <script>
 import Grade from "@/components/Grade.vue"
+import ExamineRecord from '@/components/ExamineRecord.vue'
 import Import from "@/components/Import.vue"
+import StudentList from "@/components/StudentList.vue";
 export default {
   name: "Teacher",
   components: {
     Grade,
-    Import
+    Import,
+    ExamineRecord,
+    StudentList
   },
   data() {
     return {

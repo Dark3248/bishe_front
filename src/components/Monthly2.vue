@@ -102,6 +102,7 @@ export default {
         num: 0,
         examineStatus: "",
         examineContent: "",
+        examiner: ""
       },
       current: "",
       pageTotalNum: [],
@@ -138,6 +139,7 @@ export default {
       this.postData.num = num;
       this.postData.examineStatus = value;
       this.postData.uid = this.current;
+      this.postData.examiner = sessionStorage.getItem("username")
       this.$axios
         .post(this.back_server + "/examine/examineMonthly", this.postData)
         .then((res) => {
