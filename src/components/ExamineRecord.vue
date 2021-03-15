@@ -89,7 +89,7 @@ export default {
           } else if (this.record[i].type == 3) {
             this.record[i].type = "学费审批";
           } else if (this.record[i].type == 4) {
-            this.record[i].type = "其余实习材料审批";
+            this.record[i].type = "实习材料审批";
           } else {
             this.record[i].type = "月报审批";
           }

@@ -33,16 +33,12 @@
             <MenuItem name="5">填写毕业登记</MenuItem>
           </div>
           <div v-if="utype == 2">
-            <MenuItem name="1" style="margin-left: 50px">审核成绩单</MenuItem>
-            <MenuItem name="2">导入名单</MenuItem>
-            <MenuItem name="3">审核记录</MenuItem>
-            <MenuItem name="4">学生名单</MenuItem>
+            <MenuItem name="1" style="margin-left: 50px">导入名单</MenuItem>
+            <MenuItem name="2">学生名单</MenuItem>
           </div>
           <div v-if="utype == 3">
-            <MenuItem name="1" style="margin-left: 50px">审核学费信息</MenuItem>
-            <MenuItem name="2">导入名单</MenuItem>
-            <MenuItem name="3">审核记录</MenuItem>
-            <MenuItem name="4">学生名单</MenuItem>
+            <MenuItem name="1" style="margin-left: 50px">导入名单</MenuItem>
+            <MenuItem name="2">学生名单</MenuItem>
           </div>
           <div v-if="utype == 4">
             <MenuItem name="1" style="margin-left: 50px">审核月报</MenuItem>

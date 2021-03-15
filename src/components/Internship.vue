@@ -252,87 +252,7 @@
           >
             <Button icon="ios-cloud-upload-outline">上传简历（.pdf）</Button>
           </Upload>
-        </Col>
-        <Col offset="2">
-          <Upload
-            v-if="submit == false || formValidate.examineStatus3 == 2"
-            multiple
-            :data="uploadData[1]"
-            :on-remove="handleRemove"
-            :action="url"
-            accept=".jpg, .png, .jpeg"
-          >
-            <Button icon="ios-cloud-upload-outline"
-              >上传保险证明（图片）</Button
-            >
-          </Upload>
-          <Upload
-            v-else
-            disabled
-            multiple
-            :data="uploadData[1]"
-            :on-remove="handleRemove"
-            :action="url"
-            accept=".jpg, .png, .jpeg"
-          >
-            <Button icon="ios-cloud-upload-outline"
-              >上传保险证明（图片）</Button
-            >
-          </Upload>
-        </Col>
-        <Col offset="2">
-          <Upload
-            v-if="submit == false || formValidate.examineStatus2 == 2"
-            multiple
-            :data="uploadData[2]"
-            :on-remove="handleRemove"
-            :action="url"
-            accept=".jpg, .png, .jpeg"
-          >
-            <Button icon="ios-cloud-upload-outline"
-              >上传学费证明（图片）</Button
-            >
-          </Upload>
-          <Upload
-            v-else
-            disabled
-            multiple
-            :data="uploadData[2]"
-            :on-remove="handleRemove"
-            :action="url"
-            accept=".jpg, .png, .jpeg"
-          >
-            <Button icon="ios-cloud-upload-outline"
-              >上传学费证明（图片）</Button
-            >
-          </Upload>
-        </Col>
-        <Col offset="2">
-          <Upload
-            v-if="submit == false || formValidate.examineStatus1 == 2"
-            multiple
-            :data="uploadData[3]"
-            :on-remove="handleRemove"
-            :action="url"
-            accept=".jpg, .png, .jpeg"
-          >
-            <Button icon="ios-cloud-upload-outline">上传成绩单（图片）</Button>
-          </Upload>
-          <Upload
-            v-else
-            disabled
-            multiple
-            :data="uploadData[3]"
-            :on-remove="handleRemove"
-            :action="url"
-            accept=".jpg, .png, .jpeg"
-          >
-            <Button icon="ios-cloud-upload-outline">上传成绩单（图片）</Button>
-          </Upload>
-        </Col>
-      </Row>
-      <Row style="margin-top: 1vh">
-        <Col>
+
           <Upload
             v-if="submit == false || formValidate.examineStatus3 == 2"
             multiple
@@ -359,34 +279,62 @@
             >
           </Upload>
         </Col>
-        <Col offset="2" v-if="formValidate.internshipType == '2'">
+        <Col offset="5">
           <Upload
             v-if="submit == false || formValidate.examineStatus3 == 2"
             multiple
-            :data="uploadData[5]"
+            :data="uploadData[1]"
             :on-remove="handleRemove"
             :action="url"
             accept=".jpg, .png, .jpeg"
           >
             <Button icon="ios-cloud-upload-outline"
-              >上传劳动合同/劳务合同/实习证明/实习协议（图片）</Button
+              >上传保险证明（图片）</Button
             >
           </Upload>
           <Upload
             v-else
             disabled
             multiple
-            :data="uploadData[5]"
+            :data="uploadData[1]"
             :on-remove="handleRemove"
             :action="url"
             accept=".jpg, .png, .jpeg"
           >
             <Button icon="ios-cloud-upload-outline"
-              >上传劳动合同/劳务合同/实习证明/实习协议（图片）</Button
+              >上传保险证明（图片）</Button
             >
           </Upload>
+          <div v-if="formValidate.internshipType == '2'">
+            <Upload
+              v-if="submit == false || formValidate.examineStatus3 == 2"
+              multiple
+              :data="uploadData[5]"
+              :on-remove="handleRemove"
+              :action="url"
+              accept=".jpg, .png, .jpeg"
+            >
+              <Button icon="ios-cloud-upload-outline"
+                >上传劳动合同/劳务合同/实习证明/实习协议（图片）</Button
+              >
+            </Upload>
+            <Upload
+              v-else
+              disabled
+              multiple
+              :data="uploadData[5]"
+              :on-remove="handleRemove"
+              :action="url"
+              accept=".jpg, .png, .jpeg"
+            >
+              <Button icon="ios-cloud-upload-outline"
+                >上传劳动合同/劳务合同/实习证明/实习协议（图片）</Button
+              >
+            </Upload>
+          </div>
         </Col>
       </Row>
+      <Row style="margin-top: 1vh"> </Row>
       <Button
         v-if="
           submit == false ||
@@ -410,9 +358,7 @@
             formValidate.examineStatus1 == 1
           "
         >
-          <a
-            :href="formValidate.path"
-            v-if="formValidate.path != ''"
+          <a :href="formValidate.path" v-if="formValidate.path != ''"
             >点击下载实习登记表</a
           >
           <Button

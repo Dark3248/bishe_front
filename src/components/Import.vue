@@ -6,8 +6,14 @@
         <Row v-if="utype == 3">
           <a :href="download1">学生名单模板</a>
         </Row>
+        <Row v-if="utype == 3">
+          <a :href="download2">学费信息模板</a>
+        </Row>
         <Row v-if="utype == 2">
           <a :href="download2">答辩名单模板</a>
+        </Row>
+        <Row v-if="utype == 2">
+          <a :href="download2">成绩单信息模板</a>
         </Row>
         <Row v-if="utype == 4">
           <a :href="download3">图书归还名单模板</a>
@@ -20,12 +26,14 @@
     <Row justify="center" style="margin-top: 10vh">
       <RadioGroup v-model="postData.type">
         <div v-if="utype == 2">
+          <Radio label="导入成绩单信息"></Radio>
           <Radio label="通过开题答辩名单"></Radio>
           <Radio label="通过中期答辩名单"></Radio>
           <Radio label="通过毕业答辩名单"></Radio>
         </div>
         <div v-if="utype == 3">
           <Radio label="导入学生名单"></Radio>
+          <Radio label="导入学费信息"></Radio>
         </div>
         <div v-if="utype == 4">
           <Radio label="图书归还名单"></Radio>
@@ -94,7 +102,6 @@ export default {
   },
   methods: {
     handleSuccess(response) {
-      console.log(response);
       if (response == 1) this.$Message.success("提交成功");
       else this.$Message.error("上传失败，请检查名单是否符合格式");
     },

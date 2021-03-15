@@ -53,6 +53,22 @@ export default {
           title: "当前状态",
           key: "status",
         },
+        {
+          title: "学费是否提交",
+          key: "tuition",
+        },
+        {
+          title: "成绩是否合格",
+          key: "grade",
+        },
+        {
+          title: "图书是否归还",
+          key: "book",
+        },
+        {
+          title: "论文电子版是否提交",
+          key: "paper",
+        },
       ],
       record: [],
       record1: [],
@@ -93,6 +109,26 @@ export default {
           } else {
             this.record[i].status = "已毕业"
           }
+
+          if (this.record[i].tuition == true)
+            this.record[i].tuition = "是"
+          else 
+            this.record[i].tuition = "否"
+          
+          if (this.record[i].paper == true)
+            this.record[i].paper = "是"
+          else 
+            this.record[i].paper = "否"
+
+          if (this.record[i].grade == true)
+            this.record[i].grade = "是"
+          else 
+            this.record[i].grade = "否"
+
+          if (this.record[i].book == true)
+            this.record[i].book = "是"
+          else 
+            this.record[i].book = "否"
         }
         this.record1 = this.record
 });
