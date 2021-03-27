@@ -25,7 +25,7 @@
     <FormItem label="工作地（省市区）" prop="base">
       <Input v-model="formValidate.base" :disabled="submit"></Input>
     </FormItem>
-    <FormItem label="薪资待遇" prop="salary">
+    <FormItem label="薪资待遇（万元）" prop="salary">
       <Input v-model="formValidate.salary" :disabled="submit"></Input>
     </FormItem>
     <FormItem>

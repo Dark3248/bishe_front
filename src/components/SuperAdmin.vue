@@ -10,6 +10,12 @@
       <div v-if="current == 3">
           <AllGraduation></AllGraduation>
       </div>
+      <div v-if="current == 4">
+          <StudentList></StudentList>
+      </div>
+      <div v-if="current == 5">
+          <Users></Users>
+      </div>
     </Content>
   </Layout>
 </template>
@@ -18,12 +24,16 @@
 import AllInternship from "@/components/AllInternship.vue"
 import AllJob from "@/components/AllJob.vue"
 import AllGraduation from "@/components/AllGraduation.vue"
+import StudentList from "@/components/StudentList.vue"
+import Users from "@/components/Users.vue"
 export default {
   name: "SuperAdmin",
   components: {
       AllInternship,
       AllJob,
-      AllGraduation
+      AllGraduation,
+      StudentList,
+      Users
   },
   data() {
     return {

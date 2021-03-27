@@ -6,8 +6,16 @@
         highlight-row
         @on-row-click="change"
         :columns="columns"
-        :data="data"
+        :data="showData"
       ></Table>
+      <div style="text-align: center; margin-top: 1vh">
+        <Page
+          :current="pageCurrent"
+          :total="data.length"
+          :page-size="pageSize"
+          @on-change="changePage"
+        />
+      </div>
     </Col>
     <Col offset="1" span="16">
       <Tabs v-if="current != ''">
@@ -40,10 +48,7 @@
             </ButtonGroup>
           </div>
           <Row justify="center" style="margin-top: 3vh">
-            <Button
-              type="success"
-              style="margin-right: 10vh"
-              @click="ok2()"
+            <Button type="success" style="margin-right: 10vh" @click="ok2()"
               >全部通过</Button
             >
             <Button
@@ -102,11 +107,14 @@ export default {
         num: 0,
         examineStatus: "",
         examineContent: "",
-        examiner: ""
+        examiner: "",
       },
       current: "",
       pageTotalNum: [],
       currentPage: [],
+      pageCurrent: 1,
+      showData: [],
+      pageSize: 10,
     };
   },
   mounted() {
@@ -125,6 +133,7 @@ export default {
           }
         }
         if (this.data.length !== 0) this.change(this.data[0]);
+        this.changePage(1);
       });
     },
     change(currentRow, index) {
@@ -139,7 +148,7 @@ export default {
       this.postData.num = num;
       this.postData.examineStatus = value;
       this.postData.uid = this.current;
-      this.postData.examiner = sessionStorage.getItem("username")
+      this.postData.examiner = sessionStorage.getItem("username");
       this.$axios
         .post(this.back_server + "/examine/examineMonthly", this.postData)
         .then((res) => {
@@ -167,6 +176,15 @@ export default {
       }
       if (val === 1 && this.currentPage[index] < this.pageTotalNum[index]) {
         this.$set(this.currentPage, index, this.currentPage[index] + 1);
+      }
+    },
+    changePage(index) {
+      this.pageCurrent = index;
+      this.showData = [];
+      var start = (this.pageCurrent - 1) * this.pageSize;
+      var end = this.pageCurrent * this.pageSize;
+      for (var i = start; i < end && i < this.data.length; i++) {
+        this.showData.push(this.data[i]);
       }
     },
   },

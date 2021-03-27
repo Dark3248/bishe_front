@@ -22,8 +22,16 @@
         highlight-row
         @on-row-click="change"
         :columns="columns"
-        :data="data1"
+        :data="showData"
       ></Table>
+      <div style="text-align: center; margin-top: 1vh">
+        <Page
+          :current="pageCurrent"
+          :total="data1.length"
+          :page-size="pageSize"
+          @on-change="changePage"
+        />
+      </div>
     </Col>
     <Col offset="1" span="15">
       <Tabs>
@@ -135,13 +143,16 @@ export default {
         type: "",
         examineStatus: "",
         examineContent: "",
-        examiner: ""
+        examiner: "",
       },
       current: "",
       pageTotalNum: 1,
       currentPage: 1,
       search1: "",
       search2: "",
+      pageCurrent: 1,
+      showData: [],
+      pageSize: 10,
     };
   },
   mounted() {
@@ -153,6 +164,7 @@ export default {
         this.data = res.data;
         if (this.data.length !== 0) this.change(this.data[0]);
         this.data1 = this.data;
+        this.changePage(1);
       });
     },
     change(currentRow, index) {
@@ -211,12 +223,23 @@ export default {
       for (var i = 0; i < this.data.length; i++) {
         if (this.data[i].uid.match(this.search1)) this.data1.push(this.data[i]);
       }
+      this.changePage(1);
     },
     searchByName() {
       this.data1 = [];
       for (var i = 0; i < this.data.length; i++) {
         if (this.data[i].name.match(this.search2))
           this.data1.push(this.data[i]);
+      }
+      this.changePage(1);
+    },
+    changePage(index) {
+      this.pageCurrent = index;
+      this.showData = [];
+      var start = (this.pageCurrent - 1) * this.pageSize;
+      var end = this.pageCurrent * this.pageSize;
+      for (var i = start; i < end && i < this.data1.length; i++) {
+        this.showData.push(this.data1[i]);
       }
     },
   },

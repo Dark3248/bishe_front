@@ -21,8 +21,16 @@
         highlight-row
         @on-row-click="change"
         :columns="columns"
-        :data="data1"
+        :data="showData"
       ></Table>
+      <div style="text-align: center; margin-top: 1vh">
+        <Page
+          :current="pageCurrent"
+          :total="data1.length"
+          :page-size="pageSize"
+          @on-change="changePage"
+        />
+      </div>
     </Col>
     <Col span="16" offset="1">
       <Row> 学号：{{ current.uid }} </Row>
@@ -63,8 +71,16 @@
         <div v-if="current.insuranceType == 2">公司购买</div>
         <div v-if="current.insuranceType == 3">学院购买</div>
       </Row>
-      <Row> 保险购买日期：{{ $moment(current.insuranceStartDate).format("YYYY-MM-DD") }} </Row>
-      <Row> 保险结束日期：{{ $moment(current.insuranceEndDate).format("YYYY-MM-DD") }} </Row>
+      <Row>
+        保险购买日期：{{
+          $moment(current.insuranceStartDate).format("YYYY-MM-DD")
+        }}
+      </Row>
+      <Row>
+        保险结束日期：{{
+          $moment(current.insuranceEndDate).format("YYYY-MM-DD")
+        }}
+      </Row>
       <Row>
         班主任审批情况：
         <div v-if="current.examineStatus1 == 1">通过</div>
@@ -94,6 +110,7 @@ export default {
     return {
       data: [],
       data1: [],
+      showData: [],
       columns: [
         {
           type: "index",
@@ -112,6 +129,9 @@ export default {
       search1: "",
       search2: "",
       current: {},
+      pageCurrent: 1,
+      showData: [],
+      pageSize: 10,
     };
   },
   mounted() {
@@ -119,6 +139,7 @@ export default {
       console.log(res);
       this.data = res.data;
       this.data1 = this.data;
+      this.changePage(1);
     });
   },
   methods: {
@@ -130,12 +151,25 @@ export default {
       for (var i = 0; i < this.data.length; i++) {
         if (this.data[i].uid.match(this.search1)) this.data1.push(this.data[i]);
       }
+      this.pageCurrent = 1;
+      this.changePage(1);
     },
     searchByName() {
       this.data1 = [];
       for (var i = 0; i < this.data.length; i++) {
         if (this.data[i].name.match(this.search2))
           this.data1.push(this.data[i]);
+      }
+      this.pageCurrent = 1;
+      this.changePage(1);
+    },
+    changePage(index) {
+      this.pageCurrent = index;
+      this.showData = [];
+      var start = (this.pageCurrent - 1) * this.pageSize;
+      var end = this.pageCurrent * this.pageSize;
+      for (var i = start; i < end && i < this.data1.length; i++) {
+        this.showData.push(this.data1[i]);
       }
     },
   },

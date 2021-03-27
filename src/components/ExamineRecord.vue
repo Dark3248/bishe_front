@@ -34,7 +34,15 @@
         ></Input>
       </Col>
     </Row>
-    <Table :columns="columns" :data="record1"></Table>
+    <Table :columns="columns" :data="showData"></Table>
+    <div style="text-align: center; margin-top: 1vh">
+      <Page
+        :current="pageCurrent"
+        :total="record1.length"
+        :page-size="pageSize"
+        @on-change="changePage"
+      />
+    </div>
   </div>
 </template>
 
@@ -71,7 +79,10 @@ export default {
       search1: "",
       search2: "",
       search3: "",
-      search4: ""
+      search4: "",
+      pageCurrent: 1,
+      showData: [],
+      pageSize: 10,
     };
   },
   mounted() {
@@ -105,6 +116,7 @@ export default {
           );
         }
         this.record1 = this.record;
+        this.changePage(1);
       });
   },
   methods: {
@@ -114,6 +126,7 @@ export default {
         if (this.record[i].uid.match(this.search1))
           this.record1.push(this.record[i]);
       }
+      this.changePage(1);
     },
     searchByType() {
       this.record1 = [];
@@ -121,6 +134,7 @@ export default {
         if (this.record[i].type.match(this.search2))
           this.record1.push(this.record[i]);
       }
+      this.changePage(1);
     },
     searchByTime() {
       this.record1 = [];
@@ -128,12 +142,23 @@ export default {
         if (this.record[i].date.match(this.search3))
           this.record1.push(this.record[i]);
       }
+      this.changePage(1);
     },
     searchByPass() {
       this.record1 = [];
       for (var i = 0; i < this.record.length; i++) {
         if (this.record[i].pass.match(this.search4))
           this.record1.push(this.record[i]);
+      }
+      this.changePage(1);
+    },
+    changePage(index) {
+      this.pageCurrent = index;
+      this.showData = [];
+      var start = (this.pageCurrent - 1) * this.pageSize;
+      var end = this.pageCurrent * this.pageSize;
+      for (var i = start; i < end && i < this.record1.length; i++) {
+        this.showData.push(this.record1[i]);
       }
     },
   },

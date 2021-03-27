@@ -83,7 +83,7 @@
     <FormItem label="单位联系电话" prop="companyPhone">
       <Input v-model="formValidate.companyPhone" :disabled="submit"></Input>
     </FormItem>
-    <FormItem label="年薪" prop="salary">
+    <FormItem label="年薪（万元）" prop="salary">
       <Input v-model="formValidate.salary" :disabled="submit"></Input>
     </FormItem>
     <FormItem label="单位性质" prop="companyType">

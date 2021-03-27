@@ -26,7 +26,15 @@
         ></Input>
       </Col>
     </Row>
-    <Table :columns="columns" :data="record1"></Table>
+    <Table :columns="columns" :data="showData"></Table>
+    <div style="text-align: center; margin-top: 1vh">
+      <Page
+        :current="pageCurrent"
+        :total="record1.length"
+        :page-size="pageSize"
+        @on-change="changePage"
+      />
+    </div>
   </div>
 </template>
 
@@ -75,7 +83,10 @@ export default {
       search1: "",
       search2: "",
       search3: "",
-    }
+      pageCurrent: 1,
+      showData: [],
+      pageSize: 10,
+    };
   },
   mounted() {
     var role = sessionStorage.getItem("name");
@@ -83,6 +94,8 @@ export default {
     if (role == "班主任") {
       type = 2;
     } else if (role == "学籍管理员") {
+      type = 1;
+    } else if (role == "超级管理员") {
       type = 1;
     }
     this.$axios
@@ -93,45 +106,37 @@ export default {
         },
       })
       .then((res) => {
-        console.log(res)
-        this.record = res.data
+        this.record = res.data;
         for (var i = 0; i < this.record.length; i++) {
           if (this.record[i].status == 1) {
-            this.record[i].status = "实习阶段"
+            this.record[i].status = "实习阶段";
           } else if (this.record[i].status <= 3) {
-            this.record[i].status = "开题阶段"
+            this.record[i].status = "开题阶段";
           } else if (this.record[i].status <= 4) {
-            this.record[i].status = "中期阶段"
+            this.record[i].status = "中期阶段";
           } else if (this.record[i].status <= 5) {
-            this.record[i].status = "毕业答辩阶段"
+            this.record[i].status = "毕业答辩阶段";
           } else if (this.record[i].status <= 6) {
-            this.record[i].status = "离校阶段"
+            this.record[i].status = "离校阶段";
           } else {
-            this.record[i].status = "已毕业"
+            this.record[i].status = "已毕业";
           }
 
-          if (this.record[i].tuition == true)
-            this.record[i].tuition = "是"
-          else 
-            this.record[i].tuition = "否"
-          
-          if (this.record[i].paper == true)
-            this.record[i].paper = "是"
-          else 
-            this.record[i].paper = "否"
+          if (this.record[i].tuition == true) this.record[i].tuition = "是";
+          else this.record[i].tuition = "否";
 
-          if (this.record[i].grade == true)
-            this.record[i].grade = "是"
-          else 
-            this.record[i].grade = "否"
+          if (this.record[i].paper == true) this.record[i].paper = "是";
+          else this.record[i].paper = "否";
 
-          if (this.record[i].book == true)
-            this.record[i].book = "是"
-          else 
-            this.record[i].book = "否"
+          if (this.record[i].grade == true) this.record[i].grade = "是";
+          else this.record[i].grade = "否";
+
+          if (this.record[i].book == true) this.record[i].book = "是";
+          else this.record[i].book = "否";
         }
-        this.record1 = this.record
-});
+        this.record1 = this.record;
+        this.changePage(1);
+      });
   },
   methods: {
     searchById() {
@@ -140,6 +145,8 @@ export default {
         if (this.record[i].uid.match(this.search1))
           this.record1.push(this.record[i]);
       }
+      this.pageCurrent = 1;
+      this.changePage(1);
     },
     searchByName() {
       this.record1 = [];
@@ -147,6 +154,8 @@ export default {
         if (this.record[i].name.match(this.search2))
           this.record1.push(this.record[i]);
       }
+      this.pageCurrent = 1;
+      this.changePage(1);
     },
     searchByStatus() {
       this.record1 = [];
@@ -154,9 +163,20 @@ export default {
         if (this.record[i].status.match(this.search3))
           this.record1.push(this.record[i]);
       }
+      this.pageCurrent = 1;
+      this.changePage(1);
+    },
+    changePage(index) {
+      this.pageCurrent = index;
+      this.showData = [];
+      var start = (this.pageCurrent - 1) * this.pageSize;
+      var end = this.pageCurrent * this.pageSize;
+      for (var i = start; i < end && i < this.record1.length; i++) {
+        this.showData.push(this.record1[i]);
+      }
     },
   },
-}
+};
 </script>
 
 <style>

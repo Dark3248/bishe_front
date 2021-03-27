@@ -21,8 +21,16 @@
         highlight-row
         @on-row-click="change"
         :columns="columns"
-        :data="data1"
+        :data="showData"
       ></Table>
+      <div style="text-align: center; margin-top: 1vh">
+        <Page
+          :current="pageCurrent"
+          :total="data1.length"
+          :page-size="pageSize"
+          @on-change="changePage"
+        />
+      </div>
     </Col>
     <Col span="16" offset="1">
       <Row> 学号：{{ current.uid }} </Row>
@@ -32,7 +40,9 @@
         <div v-if="current.gender == 1">男</div>
         <div v-if="current.gender == 2">女</div>
       </Row>
-      <Row> 出生日期：{{ $moment(current.birthday).format("YYYY-MM-DD") }} </Row>
+      <Row>
+        出生日期：{{ $moment(current.birthday).format("YYYY-MM-DD") }}
+      </Row>
       <Row> 政治面貌：{{ current.politic }} </Row>
       <Row> 籍贯：{{ current.birthPlace }} </Row>
       <Row> 专业：{{ current.major }} </Row>
@@ -41,7 +51,9 @@
         <div v-if="current.studyYear == 2">2.5年</div>
         <div v-if="current.studyYear == 3">3年</div>
       </Row>
-      <Row> 毕业时间：{{ $moment(current.graduateTime).format("YYYY-MM-DD") }} </Row>
+      <Row>
+        毕业时间：{{ $moment(current.graduateTime).format("YYYY-MM-DD") }}
+      </Row>
       <Row> 手机号码：{{ current.phoneNumber }} </Row>
       <Row> qq：{{ current.qq }} </Row>
       <Row> e-mail：{{ current.email }} </Row>
@@ -49,7 +61,9 @@
       <Row> 工作部门：{{ current.department }} </Row>
       <Row> 单位电子邮件：{{ current.companyEmail }} </Row>
       <Row> 工作职位：{{ current.title }} </Row>
-      <Row> 到单位工作时间：{{ $moment(current.companyTime).format("YYYY-MM-DD") }} </Row>
+      <Row>
+        到单位工作时间：{{ $moment(current.companyTime).format("YYYY-MM-DD") }}
+      </Row>
       <Row> 单位联系人：{{ current.companyContact }} </Row>
       <Row> 单位联系电话：{{ current.companyPhone }} </Row>
       <Row> 年薪：{{ current.salary }}万 </Row>
@@ -89,6 +103,9 @@ export default {
       search1: "",
       search2: "",
       current: {},
+      pageCurrent: 1,
+      showData: [],
+      pageSize: 10,
     };
   },
   mounted() {
@@ -96,6 +113,7 @@ export default {
       console.log(res);
       this.data = res.data;
       this.data1 = this.data;
+      this.changePage(1);
     });
   },
   methods: {
@@ -107,12 +125,23 @@ export default {
       for (var i = 0; i < this.data.length; i++) {
         if (this.data[i].uid.match(this.search1)) this.data1.push(this.data[i]);
       }
+      this.changePage(1);
     },
     searchByName() {
       this.data1 = [];
       for (var i = 0; i < this.data.length; i++) {
         if (this.data[i].name.match(this.search2))
           this.data1.push(this.data[i]);
+      }
+      this.changePage(1);
+    },
+    changePage(index) {
+      this.pageCurrent = index;
+      this.showData = [];
+      var start = (this.pageCurrent - 1) * this.pageSize;
+      var end = this.pageCurrent * this.pageSize;
+      for (var i = start; i < end && i < this.data1.length; i++) {
+        this.showData.push(this.data1[i]);
       }
     },
   },

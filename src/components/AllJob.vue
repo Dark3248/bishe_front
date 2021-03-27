@@ -21,8 +21,16 @@
         highlight-row
         @on-row-click="change"
         :columns="columns"
-        :data="data1"
+        :data="showData"
       ></Table>
+      <div style="text-align: center; margin-top: 1vh">
+        <Page
+          :current="pageCurrent"
+          :total="data1.length"
+          :page-size="pageSize"
+          @on-change="changePage"
+        />
+      </div>
     </Col>
     <Col span="16" offset="1">
       <Row> 学号：{{ current.uid }} </Row>
@@ -60,6 +68,9 @@ export default {
       search1: "",
       search2: "",
       current: {},
+      pageCurrent: 1,
+      showData: [],
+      pageSize: 10,
     };
   },
   mounted() {
@@ -67,6 +78,7 @@ export default {
       console.log(res);
       this.data = res.data;
       this.data1 = this.data;
+      this.changePage(1);
     });
   },
   methods: {
@@ -78,12 +90,23 @@ export default {
       for (var i = 0; i < this.data.length; i++) {
         if (this.data[i].uid.match(this.search1)) this.data1.push(this.data[i]);
       }
+      this.changePage(1);
     },
     searchByName() {
       this.data1 = [];
       for (var i = 0; i < this.data.length; i++) {
         if (this.data[i].name.match(this.search2))
           this.data1.push(this.data[i]);
+      }
+      this.changePage(1);
+    },
+    changePage(index) {
+      this.pageCurrent = index;
+      this.showData = [];
+      var start = (this.pageCurrent - 1) * this.pageSize;
+      var end = this.pageCurrent * this.pageSize;
+      for (var i = start; i < end && i < this.data1.length; i++) {
+        this.showData.push(this.data1[i]);
       }
     },
   },

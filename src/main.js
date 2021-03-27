@@ -8,6 +8,7 @@ import 'view-design/dist/styles/iview.css'
 import axios from 'axios'
 import moment from 'moment'
 import Qs from 'qs'
+import 'babel-polyfill'
 
 Vue.use(ViewUI)
 
