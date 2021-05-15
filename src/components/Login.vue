@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       url:
-        "https://cloud.beihangsoft.cn/?service=" + this.front_server + "/login",
+        "https://scs.buaa.edu.cn/?service=" + this.front_server + "/login",
       disHover: true,
       form: {
         username: "",
@@ -64,7 +64,7 @@ export default {
     var auth = this.$route.query.authorization;
     if (auth != null) {
       this.$axios
-        .post("https://cloud.beihangsoft.cn/api/security/tokenVerify", {
+        .post("https://scs.buaa.edu.cn/api/security/tokenVerify", {
           token: auth,
           service: this.front_server,
         })

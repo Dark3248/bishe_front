@@ -58,6 +58,14 @@ export default {
           key: "name",
         },
         {
+          title: "类型",
+          key: "type"
+        },
+        {
+          title: "研究方向",
+          key: "direction"
+        },
+        {
           title: "当前状态",
           key: "status",
         },
@@ -106,6 +114,7 @@ export default {
         },
       })
       .then((res) => {
+        console.log(res.data)
         this.record = res.data;
         for (var i = 0; i < this.record.length; i++) {
           if (this.record[i].status == 1) {
@@ -133,6 +142,9 @@ export default {
 
           if (this.record[i].book == true) this.record[i].book = "是";
           else this.record[i].book = "否";
+
+          if (this.record[i].type == 1) this.record[i].type = "全日制"
+          else this.record[i].type = "非全日制"
         }
         this.record1 = this.record;
         this.changePage(1);

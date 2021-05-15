@@ -3,39 +3,39 @@
     <Row>
       <Col offset="20">
         <Row> 模板列表： </Row>
-        <Row v-if="utype == 3">
+        <Row v-if="utype == 3 || utype == 5">
           <a :href="download1">学生名单模板</a>
         </Row>
-        <Row v-if="utype == 3">
+        <Row v-if="utype == 3 || utype == 5">
           <a :href="download2">学费信息模板</a>
         </Row>
-        <Row v-if="utype == 2">
+        <Row v-if="utype == 2 || utype == 5">
           <a :href="download2">答辩名单模板</a>
         </Row>
-        <Row v-if="utype == 2">
+        <Row v-if="utype == 2 || utype == 5">
           <a :href="download2">成绩单信息模板</a>
         </Row>
-        <Row v-if="utype == 4">
+        <Row v-if="utype == 4 || utype == 5">
           <a :href="download3">图书归还名单模板</a>
         </Row>
-        <Row v-if="utype == 4">
+        <Row v-if="utype == 4 || utype == 5">
           <a :href="download4">论文电子版提交名单模板</a>
         </Row>
       </Col>
     </Row>
     <Row justify="center" style="margin-top: 10vh">
       <RadioGroup v-model="postData.type">
-        <div v-if="utype == 2">
+        <div v-if="utype == 2 || utype == 5">
           <Radio label="导入成绩单信息"></Radio>
           <Radio label="通过开题答辩名单"></Radio>
           <Radio label="通过中期答辩名单"></Radio>
           <Radio label="通过毕业答辩名单"></Radio>
         </div>
-        <div v-if="utype == 3">
+        <div v-if="utype == 3 || utype == 5">
           <Radio label="导入学生名单"></Radio>
           <Radio label="导入学费信息"></Radio>
         </div>
-        <div v-if="utype == 4">
+        <div v-if="utype == 4 || utype == 5">
           <Radio label="图书归还名单"></Radio>
           <Radio label="论文电子版提交名单"></Radio>
         </div>
