@@ -19,6 +19,9 @@
       <div v-if="current == 6">
           <Import></Import>
       </div>
+      <div v-if="current == 7">
+          <Direction></Direction>
+      </div>
     </Content>
   </Layout>
 </template>
@@ -30,6 +33,8 @@ import AllGraduation from "@/components/AllGraduation.vue"
 import StudentList from "@/components/StudentList.vue"
 import Users from "@/components/Users.vue"
 import Import from "@/components/Import.vue"
+import Direction from "@/components/Direction.vue"
+
 export default {
   name: "SuperAdmin",
   components: {
@@ -38,7 +43,8 @@ export default {
       AllGraduation,
       StudentList,
       Users,
-      Import
+      Import,
+      Direction
   },
   data() {
     return {

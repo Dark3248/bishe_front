@@ -53,6 +53,7 @@
             <MenuItem name="4">学生列表</MenuItem>
             <MenuItem name="5">班主任和管理员</MenuItem>
             <MenuItem name="6">导入名单</MenuItem>
+            <MenuItem name="7">研究方向</MenuItem>
           </div>
           <div class="layout-nav">
             <a @click="logout" style="color: #f5f7f9; margin-right: 1vh">退出登录</a>
