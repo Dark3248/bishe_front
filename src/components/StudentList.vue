@@ -25,6 +25,12 @@
           @on-search="searchByStatus()"
         ></Input>
       </Col>
+      <Col offset="2">
+        <a :href="downloadPath" v-if="downloadPath != ''"
+            >点击下载</a
+          >
+        <Button v-else @click="downloadExcel()">导出</Button>
+      </Col>
     </Row>
     <Table :columns="columns" :data="showData"></Table>
     <div style="text-align: center; margin-top: 1vh">
@@ -94,6 +100,7 @@ export default {
       pageCurrent: 1,
       showData: [],
       pageSize: 10,
+      downloadPath: "",
     };
   },
   mounted() {
@@ -186,6 +193,13 @@ export default {
       for (var i = start; i < end && i < this.record1.length; i++) {
         this.showData.push(this.record1[i]);
       }
+    },
+    downloadExcel() {
+      this.$axios
+        .get(this.back_server + "/file/export")
+        .then((res) => {
+          this.downloadPath = this.back_server + "/download/学生名单.xlsx";
+        });
     },
   },
 };

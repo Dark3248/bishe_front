@@ -32,14 +32,31 @@
         />
       </div>
     </Col>
-    <Col span="16" offset="1">
-      <Row> 学号：{{ current.uid }} </Row>
-      <Row> 姓名：{{ current.name }} </Row>
-      <Row> 类型：{{ current.type }} </Row>
-      <Row> 拟签约单位：{{ current.company }} </Row>
-      <Row> 工作地（省市区）：{{ current.base }} </Row>
-      <Row> 薪资待遇：{{ current.salary }} 万</Row>
-    </Col>
+    <div v-if="current != null">
+      <Col span="16" offset="1">
+        <Row align="middle"
+          ><Tag type="border" color="primary">学号</Tag> {{ current.uid }}
+        </Row>
+        <Row align="middle"
+          ><Tag type="border" color="primary">姓名</Tag> {{ current.name }}
+        </Row>
+        <Row align="middle"
+          ><Tag type="border" color="primary">类型</Tag> {{ current.type }}
+        </Row>
+        <Row align="middle"
+          ><Tag type="border" color="primary">拟签约单位</Tag>
+          {{ current.company }}
+        </Row>
+        <Row align="middle"
+          ><Tag type="border" color="primary">工作地（省市区）</Tag>
+          {{ current.base }}
+        </Row>
+        <Row align="middle"
+          ><Tag type="border" color="primary">薪资待遇</Tag>
+          {{ current.salary }} 万</Row
+        >
+      </Col>
+    </div>
   </Row>
 </template>
 
@@ -67,7 +84,7 @@ export default {
       ],
       search1: "",
       search2: "",
-      current: {},
+      current: null,
       pageCurrent: 1,
       showData: [],
       pageSize: 10,
