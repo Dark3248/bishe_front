@@ -33,7 +33,7 @@
       </div>
     </Col>
     <div v-if="current != null">
-      <Col span="16" offset="1">
+      <Col offset="1">
         <Row align="middle"
           ><Tag type="border" color="primary">学号</Tag> {{ current.uid }}
         </Row>

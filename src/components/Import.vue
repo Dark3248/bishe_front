@@ -94,10 +94,10 @@ export default {
         type: "",
       },
       url: this.back_server + "/file/excel",
-      download1: this.back_server + "/download/download1.xlsx",
-      download2: this.back_server + "/download/download2.xlsx",
-      download3: this.back_server + "/download/download3.xlsx",
-      download4: this.back_server + "/download/download4.xlsx",
+      download1: this.back_server + "/download/学生名单模板.xlsx",
+      download2: this.back_server + "/download/模板.xlsx",
+      download3: this.back_server + "/download/图书归还名单模板.xlsx",
+      download4: this.back_server + "/download/论文电子版提交名单模板.xlsx",
     };
   },
   methods: {
